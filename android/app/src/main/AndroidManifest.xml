@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.flutter_application">
+    package="com.example.hall_of_fame">
    <application
-        android:label="flutter_application"
+        android:label="Hall of Fame"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

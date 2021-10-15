@@ -1,6 +1,6 @@
 {
-    "name": "flutter_application",
-    "short_name": "flutter_application",
+    "name": "hall_of_fame",
+    "short_name": "hall_of_fame",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

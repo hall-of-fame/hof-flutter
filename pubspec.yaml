@@ -1,5 +1,5 @@
-name: flutter_application
-description: A new Flutter project.
+name: hall_of_fame
+description: The HOF client (mainly for Android) written by Flutter with Material Design styles.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.

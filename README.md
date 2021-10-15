@@ -1,6 +1,6 @@
-# flutter_application
+# Hall Of Fame
 
-A new Flutter project.
+The HOF client (mainly for Android) written by Flutter with Material Design styles.
 
 ## Getting Started
 
