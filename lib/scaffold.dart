@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import './screens/settings.dart';
+import './screens/about.dart';
 
 class SideDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -15,12 +17,18 @@ class SideDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.settings),
             title: Text("Settings"),
-            onTap: () {},
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SettingsScreen()),
+            ),
           ),
           ListTile(
             leading: Icon(Icons.info),
             title: Text("About"),
-            onTap: () {},
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AboutScreen()),
+            ),
           ),
         ],
       ),
