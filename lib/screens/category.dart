@@ -8,8 +8,8 @@ class CategoryScreen extends StatefulWidget {
 
 class _CategoryScreenState extends State<CategoryScreen> {
   String res = "";
-  // 0 loading, 1 success, 2 failed
-  int status = 0;
+  String status = "LOADING";
+  int httpStatusCode = 0;
 
   initState() {
     super.initState();
@@ -26,21 +26,44 @@ class _CategoryScreenState extends State<CategoryScreen> {
     if (response.statusCode == 200) {
       setState(() {
         res = response.body;
-        status = 1;
+        httpStatusCode = response.statusCode;
+        status = "SUCCESS";
       });
     } else {
       setState(() {
-        status = 2;
+        httpStatusCode = response.statusCode;
+        status = "FAILED";
       });
     }
   }
 
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        Text(status.toString()),
-        Text(res),
-      ],
-    );
+    switch (status) {
+      case "LOADING":
+        return Center(child: CircularProgressIndicator());
+      case "SUCCESS":
+        return ListView(children: [Text(res)]);
+      case "FAILED":
+        return Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text("FAILED"),
+              Container(
+                padding: EdgeInsets.fromLTRB(0, 8, 0, 20),
+                child: Text("HTTP STATUS CODE: $httpStatusCode"),
+              ),
+              OutlinedButton(
+                  onPressed: () {
+                    setState(() => status = "LOADING");
+                    fetchData();
+                  },
+                  child: Text("Retry")),
+            ],
+          ),
+        );
+      default:
+        return Text("WTF");
+    }
   }
 }
