@@ -23,6 +23,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       "Authorization": prefs.getString("password") ?? "",
     });
 
+    if (!mounted) return;
     if (response.statusCode == 200) {
       setState(() {
         res = response.body;
