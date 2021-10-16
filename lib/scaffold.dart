@@ -36,12 +36,12 @@ class SideDrawer extends StatelessWidget {
   }
 }
 
-class BottomNavigator extends StatefulWidget {
-  _BottomNavigatorState createState() => _BottomNavigatorState();
-}
+class BottomNavigator extends StatelessWidget {
+  final void Function(int) selectTab;
+  final int selectedIndex;
 
-class _BottomNavigatorState extends State<BottomNavigator> {
-  int _selectedIndex = 0;
+  BottomNavigator({required this.selectTab, required this.selectedIndex});
+
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       items: <BottomNavigationBarItem>[
@@ -58,10 +58,8 @@ class _BottomNavigatorState extends State<BottomNavigator> {
           label: "Favorite",
         ),
       ],
-      onTap: (int index) => setState(() {
-        _selectedIndex = index;
-      }),
-      currentIndex: _selectedIndex,
+      onTap: (int index) => selectTab(index),
+      currentIndex: selectedIndex,
     );
   }
 }

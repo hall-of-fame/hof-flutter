@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './screens/category.dart';
+import './screens/root.dart';
 
 class App extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -10,7 +10,7 @@ class App extends StatelessWidget {
           primarySwatch: Colors.green,
         ),
       ),
-      home: CategoryScreen(),
+      home: RootScreen(),
     );
   }
 }
