@@ -9,7 +9,10 @@ class CategoryScreen extends StatefulWidget {
   _CategoryScreenState createState() => _CategoryScreenState();
 }
 
-class _CategoryScreenState extends State<CategoryScreen> {
+class _CategoryScreenState extends State<CategoryScreen>
+    with AutomaticKeepAliveClientMixin {
+  bool get wantKeepAlive => true;
+
   List<Map<String, String>> data = [];
   Filter filter = Filter();
   String status = "LOADING";
@@ -75,6 +78,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
   }
 
   Widget build(BuildContext context) {
+    super.build(context);
     switch (status) {
       case "LOADING":
         return Center(child: CircularProgressIndicator());

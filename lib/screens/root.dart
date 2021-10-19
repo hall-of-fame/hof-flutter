@@ -9,17 +9,8 @@ class RootScreen extends StatefulWidget {
 }
 
 class _RootScreenState extends State<RootScreen> {
-  int _selectedIndex = 0;
-
-  void selectTab(int index) {
-    setState(() => _selectedIndex = index);
-  }
-
-  final tabList = <Widget>[
-    CategoryScreen(),
-    RankingScreen(),
-    FavoriteScreen(),
-  ];
+  PageController _pageController = PageController();
+  int _pageIndex = 0;
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,10 +25,18 @@ class _RootScreenState extends State<RootScreen> {
         ],
       ),
       drawer: SideDrawer(),
-      body: tabList.elementAt(_selectedIndex),
+      body: PageView(
+        children: <Widget>[
+          CategoryScreen(),
+          RankingScreen(),
+          FavoriteScreen(),
+        ],
+        controller: _pageController,
+        onPageChanged: (index) => setState(() => _pageIndex = index),
+      ),
       bottomNavigationBar: BottomNavigator(
-        selectTab: selectTab,
-        selectedIndex: _selectedIndex,
+        selectTab: (index) => _pageController.jumpToPage(index),
+        selectedIndex: _pageIndex,
       ),
     );
   }
