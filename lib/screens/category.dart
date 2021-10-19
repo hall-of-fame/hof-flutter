@@ -1,9 +1,10 @@
-import 'dart:convert';
-
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
+import 'package:hall_of_fame/common/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+
+import '../common/enums.dart';
+import '../common/classes.dart';
 
 class CategoryScreen extends StatefulWidget {
   _CategoryScreenState createState() => _CategoryScreenState();
@@ -13,280 +14,169 @@ class _CategoryScreenState extends State<CategoryScreen>
     with AutomaticKeepAliveClientMixin {
   bool get wantKeepAlive => true;
 
-  List<Map<String, String>> data = [];
   Filter filter = Filter();
-  String status = "LOADING";
-  String errInfo = "";
 
   initState() {
     super.initState();
-    fetchData();
-  }
-
-  void initData(Response response) {
-    response.data.forEach(
-      (department) => department.grades.forEach(
-        (grade) => grade.students.forEach(
-          (student) => student.stickers.forEach(
-            (sticker) {
-              var item = {
-                "image": "https://zhongtai521.wang:996${sticker.url}",
-                "avatar":
-                    "http://q1.qlogo.cn/g?b=qq&nk=${student.avatar}&s=640",
-                "author": student.name,
-                "title": sticker.desc,
-                "department": department.name,
-                "grade": grade.name,
-              };
-              data.add(item);
-            },
-          ),
-        ),
-      ),
-    );
-  }
-
-  void fetchData() async {
-    final url = Uri.parse('https://zhongtai521.wang:996/departments/');
-    final prefs = await SharedPreferences.getInstance();
-    var response;
-    try {
-      response = await http.get(url, headers: {
-        "Authorization": prefs.getString("password") ?? "",
-      });
-    } catch (err) {
-      setState(() {
-        errInfo = err.toString();
-        status = "FAILED";
-      });
-      return;
-    }
-
-    if (!mounted) return;
-    if (response.statusCode == 200) {
-      setState(() {
-        initData(Response.fromJson(jsonDecode(response.body)));
-        filter.updateStudents(data);
-        status = "SUCCESS";
-      });
-    } else {
-      setState(() {
-        errInfo = "HTTP STATUS CODE: ${response.statusCode}";
-        status = "FAILED";
-      });
-    }
   }
 
   Widget build(BuildContext context) {
     super.build(context);
-    switch (status) {
-      case "LOADING":
-        return Center(child: CircularProgressIndicator());
-      case "SUCCESS":
-        return ListView(
-          padding: EdgeInsets.all(20),
-          shrinkWrap: true,
-          children: [
-            Text("Departments"),
-            Wrap(children: [
-              ...filter.departments.keys
-                  .map(
-                    (department) => Container(
-                      padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
-                      child: FilterChip(
-                        selectedColor: Colors.green,
-                        checkmarkColor: Colors.white,
-                        labelStyle: TextStyle(color: Colors.white),
-                        label: Text(department),
-                        selected: filter.departments[department] ?? false,
-                        onSelected: (selected) => setState(() {
-                          filter.departments[department] = selected;
-                          filter.updateStudents(data);
-                        }),
-                      ),
-                    ),
-                  )
-                  .toList(),
-            ]),
-            Text("Grades"),
-            Wrap(children: [
-              ...filter.grades.keys
-                  .map(
-                    (grade) => Container(
-                      padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
-                      child: FilterChip(
-                        selectedColor: Colors.green,
-                        checkmarkColor: Colors.white,
-                        labelStyle: TextStyle(color: Colors.white),
-                        label: Text(grade),
-                        selected: filter.grades[grade] ?? false,
-                        onSelected: (selected) => setState(() {
-                          filter.grades[grade] = selected;
-                          filter.updateStudents(data);
-                        }),
-                      ),
-                    ),
-                  )
-                  .toList(),
-            ]),
-            Text("Students"),
-            Wrap(children: [
-              ...filter.students.keys
-                  .map(
-                    (student) => Container(
-                      padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
-                      child: FilterChip(
-                          selectedColor: Colors.green,
-                          checkmarkColor: Colors.white,
-                          labelStyle: TextStyle(color: Colors.white),
-                          label: Text(student),
-                          selected: filter.students[student] ?? false,
-                          onSelected: (selected) => setState(
-                              () => filter.students[student] = selected)),
-                    ),
-                  )
-                  .toList(),
-            ]),
-            ...data
-                .where((sticker) =>
-                    filter.students[sticker['author'] ?? ""] ?? false)
-                .map(
-                  (sticker) => Card(
-                    child: InkWell(
-                      splashColor: Colors.green.withAlpha(30),
-                      onTap: () {},
-                      child: Container(
-                        padding: EdgeInsets.all(20),
-                        child: Column(
-                          children: [
-                            CachedNetworkImage(
-                              placeholder: (context, url) =>
-                                  CircularProgressIndicator(),
-                              imageUrl: sticker['image'] ?? "",
-                              errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
+    return Consumer<StickersProvider>(
+      builder: (context, stickers, child) {
+        switch (stickers.status) {
+          case LoadingState.loading:
+            return Center(child: CircularProgressIndicator());
+          case LoadingState.success:
+            if (filter.students.length == 0)
+              filter.updateStudents(stickers.stickers);
+            return ListView(
+              padding: EdgeInsets.all(20),
+              shrinkWrap: true,
+              children: [
+                Text("Departments"),
+                Wrap(children: [
+                  ...filter.departments.keys
+                      .map(
+                        (department) => Container(
+                          padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
+                          child: FilterChip(
+                            selectedColor: Colors.green,
+                            checkmarkColor: Colors.white,
+                            labelStyle: TextStyle(color: Colors.white),
+                            label: Text(department),
+                            selected: filter.departments[department] ?? false,
+                            onSelected: (selected) => setState(() {
+                              filter.departments[department] = selected;
+                              filter.updateStudents(stickers.stickers);
+                            }),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ]),
+                Text("Grades"),
+                Wrap(children: [
+                  ...filter.grades.keys
+                      .map(
+                        (grade) => Container(
+                          padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
+                          child: FilterChip(
+                            selectedColor: Colors.green,
+                            checkmarkColor: Colors.white,
+                            labelStyle: TextStyle(color: Colors.white),
+                            label: Text(grade),
+                            selected: filter.grades[grade] ?? false,
+                            onSelected: (selected) => setState(() {
+                              filter.grades[grade] = selected;
+                              filter.updateStudents(stickers.stickers);
+                            }),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ]),
+                Text("Students"),
+                Wrap(children: [
+                  ...filter.students.keys
+                      .map(
+                        (student) => Container(
+                          padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
+                          child: FilterChip(
+                            selectedColor: Colors.green,
+                            checkmarkColor: Colors.white,
+                            labelStyle: TextStyle(color: Colors.white),
+                            label: Text(student),
+                            selected: filter.students[student] ?? false,
+                            onSelected: (selected) => setState(
+                              () => filter.students[student] = selected,
                             ),
-                            Container(
-                              margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                              child: Flex(
-                                direction: Axis.horizontal,
-                                children: [
-                                  Container(
-                                    width: 36,
-                                    height: 36,
-                                    margin: EdgeInsets.fromLTRB(0, 0, 12, 0),
-                                    child: ClipOval(
-                                      child: CachedNetworkImage(
-                                        placeholder: (context, url) =>
-                                            CircularProgressIndicator(),
-                                        imageUrl: sticker['avatar'] ?? "",
-                                        errorWidget: (context, url, error) =>
-                                            Icon(Icons.error),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ]),
+                ...stickers.stickers
+                    .where(
+                        (sticker) => filter.students[sticker.author] ?? false)
+                    .map(
+                      (sticker) => Card(
+                        child: InkWell(
+                          splashColor: Colors.green.withAlpha(30),
+                          onTap: () {},
+                          child: Container(
+                            padding: EdgeInsets.all(20),
+                            child: Column(
+                              children: [
+                                CachedNetworkImage(
+                                  placeholder: (context, url) =>
+                                      CircularProgressIndicator(),
+                                  imageUrl: sticker.image,
+                                  errorWidget: (context, url, error) =>
+                                      Icon(Icons.error),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                                  child: Flex(
+                                    direction: Axis.horizontal,
+                                    children: [
+                                      Container(
+                                        width: 36,
+                                        height: 36,
+                                        margin:
+                                            EdgeInsets.fromLTRB(0, 0, 12, 0),
+                                        child: ClipOval(
+                                          child: CachedNetworkImage(
+                                            placeholder: (context, url) =>
+                                                CircularProgressIndicator(),
+                                            imageUrl: sticker.avatar,
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    Icon(Icons.error),
+                                          ),
+                                        ),
                                       ),
-                                    ),
+                                      Text(sticker.author),
+                                      Expanded(
+                                        child: Container(
+                                          padding:
+                                              EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                          child: Text(sticker.title),
+                                        ),
+                                      )
+                                    ],
                                   ),
-                                  Text(sticker['author'] ?? ""),
-                                  Expanded(
-                                    child: Container(
-                                      padding:
-                                          EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                      child: Text(sticker['title'] ?? ""),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
+                                )
+                              ],
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                    )
+                    .toList()
+              ],
+            );
+          case LoadingState.failure:
+            return Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text("FAILED"),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(32, 8, 32, 20),
+                    child: Text(stickers.errMsg),
                   ),
-                )
-                .toList()
-          ],
-        );
-      case "FAILED":
-        return Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text("FAILED"),
-              Container(
-                padding: EdgeInsets.fromLTRB(32, 8, 32, 20),
-                child: Text(errInfo),
+                  OutlinedButton(
+                    onPressed: stickers.updateStickers,
+                    child: Text("Retry"),
+                  ),
+                ],
               ),
-              OutlinedButton(
-                onPressed: () {
-                  setState(() => status = "LOADING");
-                  fetchData();
-                },
-                child: Text("Retry"),
-              ),
-            ],
-          ),
-        );
-      default:
-        return Text("WTF");
-    }
+            );
+        }
+      },
+    );
   }
-}
-
-class Response {
-  final List<Department> data;
-  Response() : data = [];
-  Response.fromJson(Map<String, dynamic> json)
-      : data = (json['data'] as List)
-            .map((department) => Department.fromJson(department))
-            .toList();
-}
-
-class Department {
-  final String name;
-  final List<Grade> grades;
-
-  Department(this.name, this.grades);
-  Department.fromJson(Map<String, dynamic> json)
-      : name = json['name'],
-        grades = (json['grades'] as List)
-            .map((grade) => Grade.fromJson(grade))
-            .toList();
-}
-
-class Grade {
-  final String name;
-  final List<Student> students;
-
-  Grade(this.name, this.students);
-  Grade.fromJson(Map<String, dynamic> json)
-      : name = json['name'],
-        students = (json['students'] as List)
-            .map((student) => Student.fromJson(student))
-            .toList();
-}
-
-class Student {
-  final String name;
-  final String avatar;
-  final List<Sticker> stickers;
-
-  Student(this.name, this.avatar, this.stickers);
-  Student.fromJson(Map<String, dynamic> json)
-      : name = json['name'],
-        avatar = json['avatar'],
-        stickers = (json['stickers'] as List)
-            .map((sticker) => Sticker.fromJson(sticker))
-            .toList();
-}
-
-class Sticker {
-  final String desc;
-  final String url;
-
-  Sticker(this.desc, this.url);
-
-  Sticker.fromJson(Map<String, dynamic> json)
-      : desc = json['desc'],
-        url = json['url'];
 }
 
 class Filter {
@@ -308,12 +198,12 @@ class Filter {
     "21": true,
   };
   Map<String, bool> students = {};
-  void updateStudents(List<Map<String, String>> data) {
+  void updateStudents(List<StickerElement> stickers) {
     var studentsSet = Set<String>();
-    data.forEach((sticker) {
-      if ((departments[sticker['department'] ?? ""] ?? false) &&
-          (grades[sticker['grade'] ?? ""] ?? false)) {
-        studentsSet.add(sticker['author'] ?? "");
+    stickers.forEach((sticker) {
+      if ((departments[sticker.department] ?? false) &&
+          (grades[sticker.grade] ?? false)) {
+        studentsSet.add(sticker.author);
       }
     });
 
