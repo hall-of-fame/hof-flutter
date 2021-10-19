@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,7 +13,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
   List<Map<String, String>> data = [];
   Filter filter = Filter();
   String status = "LOADING";
-  int httpStatusCode = 0;
+  String errInfo = "";
 
   initState() {
     super.initState();
@@ -47,21 +46,29 @@ class _CategoryScreenState extends State<CategoryScreen> {
   void fetchData() async {
     final url = Uri.parse('https://zhongtai521.wang:996/departments/');
     final prefs = await SharedPreferences.getInstance();
-    final response = await http.get(url, headers: {
-      "Authorization": prefs.getString("password") ?? "",
-    });
+    var response;
+    try {
+      response = await http.get(url, headers: {
+        "Authorization": prefs.getString("password") ?? "",
+      });
+    } catch (err) {
+      setState(() {
+        errInfo = err.toString();
+        status = "FAILED";
+      });
+      return;
+    }
 
     if (!mounted) return;
     if (response.statusCode == 200) {
       setState(() {
         initData(Response.fromJson(jsonDecode(response.body)));
         filter.updateStudents(data);
-        httpStatusCode = response.statusCode;
         status = "SUCCESS";
       });
     } else {
       setState(() {
-        httpStatusCode = response.statusCode;
+        errInfo = "HTTP STATUS CODE: ${response.statusCode}";
         status = "FAILED";
       });
     }
@@ -76,7 +83,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
           padding: EdgeInsets.all(20),
           shrinkWrap: true,
           children: [
-            Row(children: [
+            Text("Departments"),
+            Wrap(children: [
               ...filter.departments.keys
                   .map(
                     (department) => FilterChip(
@@ -90,7 +98,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   )
                   .toList(),
             ]),
-            Row(children: [
+            Text("Grades"),
+            Wrap(children: [
               ...filter.grades.keys
                   .map(
                     (grade) => FilterChip(
@@ -104,6 +113,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   )
                   .toList(),
             ]),
+            Text("Students"),
             Wrap(children: [
               ...filter.students.keys
                   .map(
@@ -131,6 +141,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               placeholder: (context, url) =>
                                   CircularProgressIndicator(),
                               imageUrl: sticker['image'] ?? "",
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
                             ),
                             Container(
                               margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -146,6 +158,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                         placeholder: (context, url) =>
                                             CircularProgressIndicator(),
                                         imageUrl: sticker['avatar'] ?? "",
+                                        errorWidget: (context, url, error) =>
+                                            Icon(Icons.error),
                                       ),
                                     ),
                                   ),
@@ -176,8 +190,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
             children: [
               Text("FAILED"),
               Container(
-                padding: EdgeInsets.fromLTRB(0, 8, 0, 20),
-                child: Text("HTTP STATUS CODE: $httpStatusCode"),
+                padding: EdgeInsets.fromLTRB(32, 8, 32, 20),
+                child: Text(errInfo),
               ),
               OutlinedButton(
                 onPressed: () {
