@@ -24,111 +24,88 @@ class _CategoryScreenState extends State<CategoryScreen>
     super.build(context);
     return Consumer<StickersProvider>(
       builder: (context, stickers, child) {
-        switch (stickers.status) {
-          case LoadingState.loading:
-            return Center(child: CircularProgressIndicator());
-          case LoadingState.success:
-            if (filter.students.length == 0)
-              filter.updateStudents(stickers.stickers);
-            return ListView(
-              padding: EdgeInsets.all(20),
-              shrinkWrap: true,
-              children: [
-                Text("Departments"),
-                Wrap(children: [
-                  ...filter.departments.keys
-                      .map(
-                        (department) => Container(
-                          padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
-                          child: FilterChip(
-                            selectedColor: Colors.green,
-                            checkmarkColor: Colors.white,
-                            labelStyle: TextStyle(color: Colors.white),
-                            label: Text(department),
-                            selected: filter.departments[department] ?? false,
-                            onSelected: (selected) => setState(() {
-                              filter.departments[department] = selected;
-                              filter.updateStudents(stickers.stickers);
-                            }),
-                          ),
-                        ),
-                      )
-                      .toList(),
-                ]),
-                Text("Grades"),
-                Wrap(children: [
-                  ...filter.grades.keys
-                      .map(
-                        (grade) => Container(
-                          padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
-                          child: FilterChip(
-                            selectedColor: Colors.green,
-                            checkmarkColor: Colors.white,
-                            labelStyle: TextStyle(color: Colors.white),
-                            label: Text(grade),
-                            selected: filter.grades[grade] ?? false,
-                            onSelected: (selected) => setState(() {
-                              filter.grades[grade] = selected;
-                              filter.updateStudents(stickers.stickers);
-                            }),
-                          ),
-                        ),
-                      )
-                      .toList(),
-                ]),
-                Text("Students"),
-                filter.students.length == 0
-                    ? Container(
-                        padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
-                        child: Text(
-                          "None is available",
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                      )
-                    : Wrap(children: [
-                        ...filter.students.keys
-                            .map(
-                              (student) => Container(
-                                padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
-                                child: FilterChip(
-                                  selectedColor: Colors.green,
-                                  checkmarkColor: Colors.white,
-                                  labelStyle: TextStyle(color: Colors.white),
-                                  label: Text(student),
-                                  selected: filter.students[student] ?? false,
-                                  onSelected: (selected) => setState(
-                                    () => filter.students[student] = selected,
-                                  ),
-                                ),
+        if (filter.students.length == 0)
+          filter.updateStudents(stickers.stickers);
+        return ListView(
+          padding: EdgeInsets.all(20),
+          shrinkWrap: true,
+          children: [
+            Text("Departments"),
+            Wrap(children: [
+              ...filter.departments.keys
+                  .map(
+                    (department) => Container(
+                      padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
+                      child: FilterChip(
+                        selectedColor: Colors.green,
+                        checkmarkColor: Colors.white,
+                        labelStyle: TextStyle(color: Colors.white),
+                        label: Text(department),
+                        selected: filter.departments[department] ?? false,
+                        onSelected: (selected) => setState(() {
+                          filter.departments[department] = selected;
+                          filter.updateStudents(stickers.stickers);
+                        }),
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ]),
+            Text("Grades"),
+            Wrap(children: [
+              ...filter.grades.keys
+                  .map(
+                    (grade) => Container(
+                      padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
+                      child: FilterChip(
+                        selectedColor: Colors.green,
+                        checkmarkColor: Colors.white,
+                        labelStyle: TextStyle(color: Colors.white),
+                        label: Text(grade),
+                        selected: filter.grades[grade] ?? false,
+                        onSelected: (selected) => setState(() {
+                          filter.grades[grade] = selected;
+                          filter.updateStudents(stickers.stickers);
+                        }),
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ]),
+            Text("Students"),
+            filter.students.length == 0
+                ? Container(
+                    padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
+                    child: Text(
+                      "None is available",
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  )
+                : Wrap(children: [
+                    ...filter.students.keys
+                        .map(
+                          (student) => Container(
+                            padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
+                            child: FilterChip(
+                              selectedColor: Colors.green,
+                              checkmarkColor: Colors.white,
+                              labelStyle: TextStyle(color: Colors.white),
+                              label: Text(student),
+                              selected: filter.students[student] ?? false,
+                              onSelected: (selected) => setState(
+                                () => filter.students[student] = selected,
                               ),
-                            )
-                            .toList(),
-                      ]),
-                ...stickers.stickers
-                    .where(
-                        (sticker) => filter.students[sticker.author] ?? false)
-                    .map((sticker) => StickerCard(sticker))
-                    .toList()
-              ],
-            );
-          case LoadingState.failure:
-            return Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text("FAILED"),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(32, 8, 32, 20),
-                    child: Text(stickers.errMsg),
-                  ),
-                  OutlinedButton(
-                    onPressed: stickers.initStickers,
-                    child: Text("Retry"),
-                  ),
-                ],
-              ),
-            );
-        }
+                            ),
+                          ),
+                        )
+                        .toList(),
+                  ]),
+            ...stickers.stickers
+                .where((sticker) => filter.students[sticker.author] ?? false)
+                .map((sticker) => StickerCard(sticker))
+                .toList()
+          ],
+        );
       },
     );
   }

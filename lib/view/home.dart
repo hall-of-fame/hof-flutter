@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'screens/category.dart';
 import 'screens/ranking.dart';
@@ -6,6 +7,9 @@ import 'screens/favorite.dart';
 
 import 'pages/settings.dart';
 import 'pages/about.dart';
+
+import 'package:hall_of_fame/common/provider.dart';
+import 'package:hall_of_fame/common/enums.dart';
 
 class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
@@ -30,8 +34,8 @@ class _HomePageState extends State<HomePage> {
       drawer: SideDrawer(),
       body: PageView(
         children: <Widget>[
-          CategoryScreen(),
-          RankingScreen(),
+          WrappedScreen(CategoryScreen()),
+          WrappedScreen(RankingScreen()),
           FavoriteScreen(),
         ],
         controller: _pageController,
@@ -104,5 +108,40 @@ class BottomNavigator extends StatelessWidget {
       onTap: (int index) => switchTab(index),
       currentIndex: currentIndex,
     );
+  }
+}
+
+class WrappedScreen extends StatelessWidget {
+  final Widget innerScreen;
+
+  WrappedScreen(this.innerScreen);
+
+  Widget build(BuildContext context) {
+    return Consumer<StickersProvider>(builder: (context, provider, child) {
+      print(provider.status);
+      switch (provider.status) {
+        case LoadingState.loading:
+          return Center(child: CircularProgressIndicator());
+        case LoadingState.success:
+          return this.innerScreen;
+        case LoadingState.failure:
+          return Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text("FAILED"),
+                Container(
+                  padding: EdgeInsets.fromLTRB(32, 8, 32, 20),
+                  child: Text(provider.errMsg),
+                ),
+                OutlinedButton(
+                  onPressed: provider.init,
+                  child: Text("Retry"),
+                ),
+              ],
+            ),
+          );
+      }
+    });
   }
 }

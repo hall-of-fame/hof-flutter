@@ -9,23 +9,27 @@ import './classes.dart';
 class StickersProvider with ChangeNotifier {
   List<StickerElement> stickers = [];
   List<StudentElement> students = [];
-  int studentMaxStickers = 1;
-  LoadingState status = LoadingState.loading;
-  String errMsg = "";
+  int _studentMaxStickers = 1;
+  LoadingState _status = LoadingState.loading;
+  String _errMsg = "";
   List<Department> _data = [];
+
+  int get studentMaxStickers => _studentMaxStickers;
+  String get errMsg => _errMsg;
+  LoadingState get status => _status;
 
   StickersProvider() {
     init();
   }
 
   void init() async {
-    status = LoadingState.loading;
+    _status = LoadingState.loading;
     _data = (await _fetchData()).data;
-    initStickers();
-    initStudents();
+    _initStickers();
+    _initStudents();
   }
 
-  void initStickers() async {
+  void _initStickers() async {
     _data.forEach(
       (department) => department.grades.forEach(
         (grade) => grade.students.forEach(
@@ -48,7 +52,7 @@ class StickersProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void initStudents() async {
+  void _initStudents() async {
     _data.forEach(
       (department) => department.grades.forEach(
         (grade) => grade.students.forEach(
@@ -69,7 +73,7 @@ class StickersProvider with ChangeNotifier {
     );
     students.forEach((student) {
       if (student.stickersNumber > studentMaxStickers) {
-        studentMaxStickers = student.stickersNumber;
+        _studentMaxStickers = student.stickersNumber;
       }
     });
     students.sort((a, b) => b.stickersNumber - a.stickersNumber);
@@ -85,17 +89,17 @@ class StickersProvider with ChangeNotifier {
         "Authorization": prefs.getString("password") ?? "",
       });
     } catch (err) {
-      errMsg = err.toString();
-      status = LoadingState.failure;
+      _errMsg = err.toString();
+      _status = LoadingState.failure;
       return Response();
     }
 
     if (response.statusCode == 200) {
-      status = LoadingState.success;
+      _status = LoadingState.success;
       return Response.fromJson(jsonDecode(response.body));
     } else {
-      errMsg = "HTTP STATUS CODE: ${response.statusCode}";
-      status = LoadingState.failure;
+      _errMsg = "HTTP STATUS CODE: ${response.statusCode}";
+      _status = LoadingState.failure;
       return Response();
     }
   }
