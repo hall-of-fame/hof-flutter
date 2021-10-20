@@ -192,21 +192,21 @@ class StickerCard extends StatelessWidget {
 
 class Filter {
   Map<String, bool> departments = {
-    "前端": true,
-    "后端": true,
-    "Android": true,
-    "iOS": true,
-    "安全": true,
-    "运维": true,
-    "产品": true,
-    "视觉": true,
+    "前端": false,
+    "后端": false,
+    "Android": false,
+    "iOS": false,
+    "安全": false,
+    "运维": false,
+    "产品": false,
+    "视觉": false,
   };
   Map<String, bool> grades = {
-    "17": true,
-    "18": true,
-    "19": true,
-    "20": true,
-    "21": true,
+    "17": false,
+    "18": false,
+    "19": false,
+    "20": false,
+    "21": false,
   };
   Map<String, bool> students = {};
   void updateStudents(List<StickerElement> stickers) {
