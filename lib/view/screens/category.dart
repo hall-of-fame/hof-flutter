@@ -122,7 +122,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                     child: Text(stickers.errMsg),
                   ),
                   OutlinedButton(
-                    onPressed: stickers.updateStickers,
+                    onPressed: stickers.initStickers,
                     child: Text("Retry"),
                   ),
                 ],

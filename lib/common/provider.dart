@@ -9,6 +9,7 @@ import './classes.dart';
 class StickersProvider with ChangeNotifier {
   List<StickerElement> stickers = [];
   List<StudentElement> students = [];
+  int studentMaxStickers = 1;
   LoadingState status = LoadingState.loading;
   String errMsg = "";
   List<Department> _data = [];
@@ -20,11 +21,11 @@ class StickersProvider with ChangeNotifier {
   void init() async {
     status = LoadingState.loading;
     _data = (await _fetchData()).data;
+    initStickers();
     initStudents();
-    updateStickers();
   }
 
-  void updateStickers() async {
+  void initStickers() async {
     _data.forEach(
       (department) => department.grades.forEach(
         (grade) => grade.students.forEach(
@@ -66,6 +67,11 @@ class StickersProvider with ChangeNotifier {
         ),
       ),
     );
+    students.forEach((student) {
+      if (student.stickersNumber > studentMaxStickers) {
+        studentMaxStickers = student.stickersNumber;
+      }
+    });
     students.sort((a, b) => b.stickersNumber - a.stickersNumber);
     notifyListeners();
   }
