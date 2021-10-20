@@ -1,6 +1,49 @@
 import 'package:flutter/material.dart';
-import './screens/settings.dart';
-import './screens/about.dart';
+
+import 'screens/category.dart';
+import 'screens/ranking.dart';
+import 'screens/favorite.dart';
+
+import 'pages/settings.dart';
+import 'pages/about.dart';
+
+class HomePage extends StatefulWidget {
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  PageController _pageController = PageController();
+  int _pageIndex = 0;
+
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Hall of Fame"),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            tooltip: "Search",
+            icon: Icon(Icons.search),
+          ),
+        ],
+      ),
+      drawer: SideDrawer(),
+      body: PageView(
+        children: <Widget>[
+          CategoryScreen(),
+          RankingScreen(),
+          FavoriteScreen(),
+        ],
+        controller: _pageController,
+        onPageChanged: (index) => setState(() => _pageIndex = index),
+      ),
+      bottomNavigationBar: BottomNavigator(
+        switchTab: (index) => _pageController.jumpToPage(index),
+        currentIndex: _pageIndex,
+      ),
+    );
+  }
+}
 
 class SideDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -37,10 +80,10 @@ class SideDrawer extends StatelessWidget {
 }
 
 class BottomNavigator extends StatelessWidget {
-  final void Function(int) selectTab;
-  final int selectedIndex;
+  final void Function(int) switchTab;
+  final int currentIndex;
 
-  BottomNavigator({required this.selectTab, required this.selectedIndex});
+  BottomNavigator({required this.switchTab, required this.currentIndex});
 
   Widget build(BuildContext context) {
     return BottomNavigationBar(
@@ -58,8 +101,8 @@ class BottomNavigator extends StatelessWidget {
           label: "Favorite",
         ),
       ],
-      onTap: (int index) => selectTab(index),
-      currentIndex: selectedIndex,
+      onTap: (int index) => switchTab(index),
+      currentIndex: currentIndex,
     );
   }
 }

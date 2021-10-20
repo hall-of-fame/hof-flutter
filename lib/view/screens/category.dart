@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:hall_of_fame/common/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-import '../common/enums.dart';
-import '../common/classes.dart';
+import 'package:hall_of_fame/common/enums.dart';
+import 'package:hall_of_fame/common/classes.dart';
 
 class CategoryScreen extends StatefulWidget {
   _CategoryScreenState createState() => _CategoryScreenState();

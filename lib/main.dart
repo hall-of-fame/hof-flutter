@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import './screens/root.dart';
-import './common/provider.dart';
+import 'view/home.dart';
+import 'common/provider.dart';
 
 class App extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class App extends StatelessWidget {
       ),
       home: ChangeNotifierProvider(
         create: (context) => StickersProvider(),
-        child: RootScreen(),
+        child: HomePage(),
       ),
     );
   }
