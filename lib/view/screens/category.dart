@@ -1,8 +1,8 @@
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
-import 'package:hall_of_fame/common/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
+import 'package:hall_of_fame/common/provider.dart';
 import 'package:hall_of_fame/common/enums.dart';
 import 'package:hall_of_fame/common/classes.dart';
 
@@ -77,25 +77,33 @@ class _CategoryScreenState extends State<CategoryScreen>
                       .toList(),
                 ]),
                 Text("Students"),
-                Wrap(children: [
-                  ...filter.students.keys
-                      .map(
-                        (student) => Container(
-                          padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
-                          child: FilterChip(
-                            selectedColor: Colors.green,
-                            checkmarkColor: Colors.white,
-                            labelStyle: TextStyle(color: Colors.white),
-                            label: Text(student),
-                            selected: filter.students[student] ?? false,
-                            onSelected: (selected) => setState(
-                              () => filter.students[student] = selected,
-                            ),
-                          ),
+                filter.students.length == 0
+                    ? Container(
+                        padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
+                        child: Text(
+                          "None is available",
+                          style: TextStyle(color: Colors.grey),
                         ),
                       )
-                      .toList(),
-                ]),
+                    : Wrap(children: [
+                        ...filter.students.keys
+                            .map(
+                              (student) => Container(
+                                padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
+                                child: FilterChip(
+                                  selectedColor: Colors.green,
+                                  checkmarkColor: Colors.white,
+                                  labelStyle: TextStyle(color: Colors.white),
+                                  label: Text(student),
+                                  selected: filter.students[student] ?? false,
+                                  onSelected: (selected) => setState(
+                                    () => filter.students[student] = selected,
+                                  ),
+                                ),
+                              ),
+                            )
+                            .toList(),
+                      ]),
                 ...stickers.stickers
                     .where(
                         (sticker) => filter.students[sticker.author] ?? false)
