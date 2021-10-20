@@ -56,13 +56,29 @@ class Sticker {
         url = json['url'];
 }
 
+class StudentElement {
+  final String name;
+  final String avatar;
+  final String department;
+  final String grade;
+  final int stickersNumber;
+
+  StudentElement({
+    required this.name,
+    required this.avatar,
+    required this.department,
+    required this.grade,
+    required this.stickersNumber,
+  });
+}
+
 class StickerElement {
-  String author;
-  String image;
-  String avatar;
-  String title;
-  String department;
-  String grade;
+  final String author;
+  final String image;
+  final String avatar;
+  final String title;
+  final String department;
+  final String grade;
 
   StickerElement({
     required this.author,

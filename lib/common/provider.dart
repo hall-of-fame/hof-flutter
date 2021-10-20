@@ -8,17 +8,24 @@ import './classes.dart';
 
 class StickersProvider with ChangeNotifier {
   List<StickerElement> stickers = [];
+  List<StudentElement> students = [];
   LoadingState status = LoadingState.loading;
   String errMsg = "";
+  List<Department> _data = [];
 
   StickersProvider() {
+    init();
+  }
+
+  void init() async {
+    status = LoadingState.loading;
+    _data = (await _fetchData()).data;
+    initStudents();
     updateStickers();
   }
 
   void updateStickers() async {
-    status = LoadingState.loading;
-    final response = await _fetchData();
-    response.data.forEach(
+    _data.forEach(
       (department) => department.grades.forEach(
         (grade) => grade.students.forEach(
           (student) => student.stickers.forEach(
@@ -37,6 +44,29 @@ class StickersProvider with ChangeNotifier {
         ),
       ),
     );
+    notifyListeners();
+  }
+
+  void initStudents() async {
+    _data.forEach(
+      (department) => department.grades.forEach(
+        (grade) => grade.students.forEach(
+          (student) {
+            var element = StudentElement(
+              name: student.name,
+              avatar: "http://q1.qlogo.cn/g?b=qq&nk=${student.avatar}&s=640",
+              department: department.name,
+              grade: grade.name,
+              stickersNumber: stickers
+                  .where((sticker) => sticker.author == student.name)
+                  .length,
+            );
+            students.add(element);
+          },
+        ),
+      ),
+    );
+    students.sort((a, b) => b.stickersNumber - a.stickersNumber);
     notifyListeners();
   }
 
