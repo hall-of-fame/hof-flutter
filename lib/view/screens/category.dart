@@ -107,60 +107,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                 ...stickers.stickers
                     .where(
                         (sticker) => filter.students[sticker.author] ?? false)
-                    .map(
-                      (sticker) => Card(
-                        child: InkWell(
-                          splashColor: Colors.green.withAlpha(30),
-                          onTap: () {},
-                          child: Container(
-                            padding: EdgeInsets.all(20),
-                            child: Column(
-                              children: [
-                                CachedNetworkImage(
-                                  placeholder: (context, url) =>
-                                      CircularProgressIndicator(),
-                                  imageUrl: sticker.image,
-                                  errorWidget: (context, url, error) =>
-                                      Icon(Icons.error),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                                  child: Flex(
-                                    direction: Axis.horizontal,
-                                    children: [
-                                      Container(
-                                        width: 36,
-                                        height: 36,
-                                        margin:
-                                            EdgeInsets.fromLTRB(0, 0, 12, 0),
-                                        child: ClipOval(
-                                          child: CachedNetworkImage(
-                                            placeholder: (context, url) =>
-                                                CircularProgressIndicator(),
-                                            imageUrl: sticker.avatar,
-                                            errorWidget:
-                                                (context, url, error) =>
-                                                    Icon(Icons.error),
-                                          ),
-                                        ),
-                                      ),
-                                      Text(sticker.author),
-                                      Expanded(
-                                        child: Container(
-                                          padding:
-                                              EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                          child: Text(sticker.title),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
+                    .map((sticker) => StickerCard(sticker))
                     .toList()
               ],
             );
@@ -183,6 +130,62 @@ class _CategoryScreenState extends State<CategoryScreen>
             );
         }
       },
+    );
+  }
+}
+
+class StickerCard extends StatelessWidget {
+  final StickerElement sticker;
+
+  StickerCard(this.sticker);
+
+  Widget build(BuildContext context) {
+    return Card(
+      child: InkWell(
+        splashColor: Colors.green.withAlpha(30),
+        onTap: () {},
+        child: Container(
+          padding: EdgeInsets.all(20),
+          child: Column(
+            children: [
+              CachedNetworkImage(
+                placeholder: (context, url) => CircularProgressIndicator(),
+                imageUrl: sticker.image,
+                errorWidget: (context, url, error) => Icon(Icons.error),
+              ),
+              Container(
+                margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                child: Flex(
+                  direction: Axis.horizontal,
+                  children: [
+                    Container(
+                      width: 36,
+                      height: 36,
+                      margin: EdgeInsets.fromLTRB(0, 0, 12, 0),
+                      child: ClipOval(
+                        child: CachedNetworkImage(
+                          placeholder: (context, url) =>
+                              CircularProgressIndicator(),
+                          imageUrl: sticker.avatar,
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
+                        ),
+                      ),
+                    ),
+                    Text(sticker.author),
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                        child: Text(sticker.title),
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
