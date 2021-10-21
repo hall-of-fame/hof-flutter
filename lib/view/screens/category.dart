@@ -1,9 +1,9 @@
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'package:hall_of_fame/common/provider.dart';
-import 'package:hall_of_fame/common/enums.dart';
 import 'package:hall_of_fame/common/classes.dart';
 
 class CategoryScreen extends StatefulWidget {
@@ -26,9 +26,11 @@ class _CategoryScreenState extends State<CategoryScreen>
       builder: (context, stickers, child) {
         if (filter.students.length == 0)
           filter.updateStudents(stickers.stickers);
+        final filteredStickers = stickers.stickers
+            .where((sticker) => filter.students[sticker.author] ?? false)
+            .toList();
         return ListView(
           padding: EdgeInsets.all(20),
-          shrinkWrap: true,
           children: [
             Text("Departments"),
             Wrap(children: [
@@ -100,10 +102,17 @@ class _CategoryScreenState extends State<CategoryScreen>
                         )
                         .toList(),
                   ]),
-            ...stickers.stickers
-                .where((sticker) => filter.students[sticker.author] ?? false)
-                .map((sticker) => StickerCard(sticker))
-                .toList()
+            StaggeredGridView.countBuilder(
+              crossAxisCount: 2,
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              mainAxisSpacing: 4.0,
+              crossAxisSpacing: 4.0,
+              itemCount: filteredStickers.length,
+              itemBuilder: (context, index) =>
+                  StickerCard(filteredStickers[index]),
+              staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
+            ),
           ],
         );
       },
@@ -121,46 +130,50 @@ class StickerCard extends StatelessWidget {
       child: InkWell(
         splashColor: Colors.green.withAlpha(30),
         onTap: () {},
-        child: Container(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            children: [
-              CachedNetworkImage(
-                placeholder: (context, url) => CircularProgressIndicator(),
-                imageUrl: sticker.image,
-                errorWidget: (context, url, error) => Icon(Icons.error),
-              ),
-              Container(
-                margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                child: Flex(
-                  direction: Axis.horizontal,
-                  children: [
-                    Container(
-                      width: 36,
-                      height: 36,
-                      margin: EdgeInsets.fromLTRB(0, 0, 12, 0),
-                      child: ClipOval(
-                        child: CachedNetworkImage(
-                          placeholder: (context, url) =>
-                              CircularProgressIndicator(),
-                          imageUrl: sticker.avatar,
-                          errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
-                        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CachedNetworkImage(
+              placeholder: (context, url) => CircularProgressIndicator(),
+              imageUrl: sticker.image,
+              errorWidget: (context, url, error) => Icon(Icons.error),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(8, 6, 6, 0),
+              child: Flex(
+                direction: Axis.horizontal,
+                children: [
+                  Container(
+                    width: 24,
+                    height: 24,
+                    margin: EdgeInsets.fromLTRB(0, 0, 12, 0),
+                    child: ClipOval(
+                      child: CachedNetworkImage(
+                        placeholder: (context, url) =>
+                            CircularProgressIndicator(),
+                        imageUrl: sticker.avatar,
+                        errorWidget: (context, url, error) => Icon(Icons.error),
                       ),
                     ),
-                    Text(sticker.author),
-                    Expanded(
-                      child: Container(
-                        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                        child: Text(sticker.title),
-                      ),
-                    )
-                  ],
+                  ),
+                  Text(
+                    sticker.author,
+                    style: TextStyle(color: Colors.grey),
+                  )
+                ],
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
+              child: Text(
+                sticker.title,
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 10,
                 ),
-              )
-            ],
-          ),
+              ),
+            ),
+          ],
         ),
       ),
     );
