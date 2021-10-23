@@ -207,8 +207,12 @@ class Filter {
         studentsSet.add(sticker.author);
       }
     });
-
-    students = {};
-    studentsSet.forEach((student) => students[student] = true);
+    print(studentsSet);
+    Map<String, bool> tempStudents = {};
+    studentsSet.forEach((String student) => tempStudents[student] = false);
+    students.forEach((key, value) {
+      if (tempStudents.containsKey(key)) tempStudents[key] = value;
+    });
+    students = tempStudents;
   }
 }
