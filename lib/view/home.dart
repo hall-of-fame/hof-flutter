@@ -7,6 +7,7 @@ import 'screens/favorite.dart';
 
 import 'pages/settings.dart';
 import 'pages/about.dart';
+import 'pages/search.dart';
 
 import 'package:hall_of_fame/common/provider.dart';
 import 'package:hall_of_fame/common/enums.dart';
@@ -24,11 +25,20 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text("Hall of Fame"),
         actions: [
-          IconButton(
-            onPressed: () {},
-            tooltip: "Search",
-            icon: Icon(Icons.search),
-          ),
+          Consumer<StickersProvider>(builder: (context, provider, child) {
+            return IconButton(
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SearchPage(
+                    stickers: provider.stickers,
+                  ),
+                ),
+              ),
+              tooltip: "Search",
+              icon: Icon(Icons.search),
+            );
+          })
         ],
       ),
       drawer: SideDrawer(),
