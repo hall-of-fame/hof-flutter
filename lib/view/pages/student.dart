@@ -79,7 +79,10 @@ class _StudentPageState extends State<StudentPage> {
             mainAxisSpacing: 4.0,
             crossAxisSpacing: 4.0,
             itemCount: stickers.length,
-            itemBuilder: (context, index) => StickerCard(stickers[index]),
+            itemBuilder: (context, index) => StickerCard(
+              sticker: stickers[index],
+              showAuthor: false,
+            ),
             staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
           ),
         ],

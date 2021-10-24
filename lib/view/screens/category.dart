@@ -109,8 +109,10 @@ class _CategoryScreenState extends State<CategoryScreen>
               mainAxisSpacing: 4.0,
               crossAxisSpacing: 4.0,
               itemCount: filteredStickers.length,
-              itemBuilder: (context, index) =>
-                  StickerCard(filteredStickers[index]),
+              itemBuilder: (context, index) => StickerCard(
+                sticker: filteredStickers[index],
+                showAuthor: true,
+              ),
               staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
             ),
           ],
