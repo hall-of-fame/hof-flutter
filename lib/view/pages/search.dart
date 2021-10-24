@@ -48,14 +48,12 @@ class _SearchPageState extends State<SearchPage> {
       ),
       body: StaggeredGridView.countBuilder(
         crossAxisCount: 2,
-        physics: NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
         mainAxisSpacing: 4.0,
         crossAxisSpacing: 4.0,
         itemCount: filteredStickers.length,
         itemBuilder: (context, index) => StickerCard(
           sticker: filteredStickers[index],
-          showAuthor: false,
+          showAuthor: true,
         ),
         staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
       ),
