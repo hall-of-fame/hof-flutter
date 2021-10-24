@@ -111,7 +111,11 @@ class _CategoryScreenState extends State<CategoryScreen>
               itemCount: filteredStickers.length,
               itemBuilder: (context, index) => StickerCard(
                 sticker: filteredStickers[index],
-                showAuthor: true,
+                showAuthor:
+                    filter.students.values.where((student) => student).length ==
+                            1
+                        ? false
+                        : true,
               ),
               staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
             ),
