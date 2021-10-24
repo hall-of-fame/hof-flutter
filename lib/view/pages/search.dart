@@ -37,13 +37,17 @@ class _SearchPageState extends State<SearchPage> {
             setState(() => filteredStickers = newFilteredStickers);
           },
         ),
-        leading: Icon(Icons.search),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
         actions: [
           IconButton(
-              icon: Icon(Icons.cancel),
-              onPressed: () {
-                this._controller.text = "";
-              }),
+            icon: Icon(Icons.cancel),
+            onPressed: () {
+              this._controller.text = "";
+            },
+          ),
         ],
       ),
       body: StaggeredGridView.countBuilder(
