@@ -1,5 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:path_provider/path_provider.dart';
+
 import 'package:hall_of_fame/common/classes.dart';
 
 class StickerCard extends StatelessWidget {
@@ -11,7 +17,23 @@ class StickerCard extends StatelessWidget {
     return Card(
       child: InkWell(
         splashColor: Colors.green.withAlpha(30),
-        onTap: () {},
+        onTap: () async {
+          final ext = RegExp(r"^.*\.(.*)$")
+              .allMatches(sticker.image)
+              .toList()[0]
+              .group(1);
+          final String filename =
+              "${sticker.department}-${sticker.grade}-${sticker.author}-${sticker.title}.$ext";
+          final String dir = (await getApplicationDocumentsDirectory()).path;
+          final String savePath = "$dir/$filename";
+          final file = File(savePath);
+          if (!(await file.exists())) {
+            String url = sticker.image;
+            final response = await get(Uri.parse(url));
+            await file.writeAsBytes(response.bodyBytes);
+          }
+          Share.shareFiles([savePath]);
+        },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
