@@ -1,11 +1,11 @@
 {
-    "name": "hall_of_fame",
-    "short_name": "hall_of_fame",
+    "name": "Hall of Fame",
+    "short_name": "Hall of Fame",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "The Hall of Fame of Redrock, developed with Flutter.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
