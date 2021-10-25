@@ -21,6 +21,7 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
       appBar: AppBar(
         title: TextField(
+          autofocus: true,
           cursorColor: Colors.white,
           style: TextStyle(color: Colors.white),
           decoration: InputDecoration(border: InputBorder.none),
