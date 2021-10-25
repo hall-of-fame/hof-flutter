@@ -27,6 +27,10 @@ class _SearchPageState extends State<SearchPage> {
           decoration: InputDecoration(border: InputBorder.none),
           controller: _controller,
           onChanged: (value) {
+            if (value == "") {
+              setState(() => filteredStickers = []);
+              return;
+            }
             List<StickerElement> newFilteredStickers = [];
             stickers.forEach((sticker) {
               if (value
