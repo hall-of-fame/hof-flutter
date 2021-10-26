@@ -54,7 +54,7 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: macos.app
-        path: build/macos/Build/Products/Release/hall_of_fame.app
+        path: build/macos/Build/Products/Release/Hall of Fame.app
 
   ios:
     runs-on: macos-latest
