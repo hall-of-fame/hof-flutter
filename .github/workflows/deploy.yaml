@@ -7,7 +7,7 @@ on: [push]
 #       - '*'
 
 jobs:
-  linux_android_web:
+  linux_android:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -21,11 +21,6 @@ jobs:
       - run: flutter config --enable-linux-desktop
       - run: flutter build apk
       - run: flutter build linux
-      - run: flutter build web
-      - uses: JamesIves/github-pages-deploy-action@4.1.5
-        with:
-          branch: gh-pages # The branch the action should deploy to.
-          folder: build/web # The folder the action should deploy.
       - uses: actions/upload-artifact@v2
         with:
           name: android-release.apk
@@ -34,27 +29,8 @@ jobs:
         with:
           name: linux
           path: build/linux/
-      - uses: actions/upload-artifact@v2
-        with:
-          name: web
-          path: build/web/
 
-
-  windows:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: subosito/flutter-action@v1
-        with:
-          flutter-version: '2.5.2'
-      - run: flutter config --enable-windows-desktop
-      - run: flutter build windows
-      - uses: actions/upload-artifact@v2
-        with:
-          name: windows
-          path: build/windows/
-
-  apple:
+  macos_ios:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
@@ -73,3 +49,37 @@ jobs:
       with:
         name: macos
         path: build/macos/Build/Products/Release/hall_of_fame.app
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '2.5.2'
+      - run: flutter config --enable-windows-desktop
+      - run: flutter build windows
+      - uses: actions/upload-artifact@v2
+        with:
+          name: windows
+          path: build/windows/
+          
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '2.5.2'
+      - run: flutter pub get
+      - run: flutter build web
+      - uses: JamesIves/github-pages-deploy-action@4.1.5
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: build/web # The folder the action should deploy.
+      - uses: actions/upload-artifact@v2
+        with:
+          name: web
+          path: build/web/
+
+
