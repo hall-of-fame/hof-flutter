@@ -69316,7 +69316,7 @@ $1(a){return C.c.O(a.c,new Y.a7r(this.a,a,this.b,this.c))},
 $S:161}
 Y.a7r.prototype={
 $1(a){var s=this,r=s.b
-s.a.a.push(new V.lM(r.a,"https://zhongtai521.wang:996"+a.b,"http://q1.qlogo.cn/g?b=qq&nk="+r.b+"&s=640",a.a,s.c.a,s.d.a))},
+s.a.a.push(new V.lM(r.a,"https://zhongtai521.wang:996"+a.b,"https://q1.qlogo.cn/g?b=qq&nk="+r.b+"&s=640",a.a,s.c.a,s.d.a))},
 $S:413}
 Y.a7y.prototype={
 $1(a){return C.c.O(a.b,new Y.a7x(this.a,a))},
@@ -69327,7 +69327,7 @@ $S:160}
 Y.a7w.prototype={
 $1(a){var s=this.a,r=s.a
 r=new H.aA(r,new Y.a7v(a),H.ae(r).j("aA<1>"))
-s.b.push(new V.fU(a.a,"http://q1.qlogo.cn/g?b=qq&nk="+a.b+"&s=640",this.b.a,this.c.a,r.gm(r)))},
+s.b.push(new V.fU(a.a,"https://q1.qlogo.cn/g?b=qq&nk="+a.b+"&s=640",this.b.a,this.c.a,r.gm(r)))},
 $S:161}
 Y.a7v.prototype={
 $1(a){return a.a===this.a.a},
