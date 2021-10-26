@@ -7,79 +7,20 @@ on: [push]
 #       - '*'
 
 jobs:
-  linux_android:
+  linux:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-java@v1
-        with:
-          java-version: '12.x'
+      # - uses: seanmiddleditch/gha-setup-ninja@master
       - uses: subosito/flutter-action@v1
         with:
           flutter-version: '2.5.2'
       - run: flutter pub get
       - run: flutter config --enable-linux-desktop
-      - run: flutter build apk
+      - run: flutter doctor -v
+      - run: sudo apt install ninja-build
+      - run: flutter doctor -v
       - run: flutter build linux
-      - uses: actions/upload-artifact@v2
-        with:
-          name: android-release.apk
-          path: build/app/outputs/flutter_apk/app-release.apk
-      - uses: actions/upload-artifact@v2
-        with:
-          name: linux
-          path: build/linux/
-
-  macos_ios:
-    runs-on: macos-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: subosito/flutter-action@v1
-      with:
-        flutter-version: '2.5.2'
-    - run: flutter config --enable-macos-desktop
-    - run: flutter pub get
-    - run: flutter build ios --release --no-codesign
-    - run: flutter build macos
-    - uses: actions/upload-artifact@v2
-      with:
-        name: ios.app
-        path: build/ios/iphoneos/Runner.app
-    - uses: actions/upload-artifact@v2
-      with:
-        name: macos
-        path: build/macos/Build/Products/Release/hall_of_fame.app
-
-  windows:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: subosito/flutter-action@v1
-        with:
-          flutter-version: '2.5.2'
-      - run: flutter config --enable-windows-desktop
-      - run: flutter build windows
-      - uses: actions/upload-artifact@v2
-        with:
-          name: windows
-          path: build/windows/
-          
-  web:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: subosito/flutter-action@v1
-        with:
-          flutter-version: '2.5.2'
-      - run: flutter pub get
-      - run: flutter build web
-      - uses: JamesIves/github-pages-deploy-action@4.1.5
-        with:
-          branch: gh-pages # The branch the action should deploy to.
-          folder: build/web # The folder the action should deploy.
-      - uses: actions/upload-artifact@v2
-        with:
-          name: web
-          path: build/web/
+  
 
 
