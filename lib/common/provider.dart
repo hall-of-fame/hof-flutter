@@ -37,7 +37,7 @@ class StickersProvider with ChangeNotifier {
             (sticker) {
               var element = StickerElement(
                 image: "https://zhongtai521.wang:996${sticker.url}",
-                avatar: "http://q1.qlogo.cn/g?b=qq&nk=${student.avatar}&s=640",
+                avatar: "https://q1.qlogo.cn/g?b=qq&nk=${student.avatar}&s=640",
                 author: student.name,
                 title: sticker.desc,
                 department: department.name,
@@ -59,7 +59,7 @@ class StickersProvider with ChangeNotifier {
           (student) {
             var element = StudentElement(
               name: student.name,
-              avatar: "http://q1.qlogo.cn/g?b=qq&nk=${student.avatar}&s=640",
+              avatar: "https://q1.qlogo.cn/g?b=qq&nk=${student.avatar}&s=640",
               department: department.name,
               grade: grade.name,
               stickersNumber: stickers
