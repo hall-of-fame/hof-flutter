@@ -39,7 +39,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: android-release.apk
-          path: build/app/outputs/flutter_apk/app-release.apk
+          path: build/app/outputs/flutter-apk/app-release.apk
 
   macos_ios:
     runs-on: macos-latest
