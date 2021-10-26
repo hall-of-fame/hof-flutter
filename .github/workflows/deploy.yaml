@@ -7,7 +7,24 @@ on: [push]
 #       - '*'
 
 jobs:
-  linux_android:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '2.5.2'
+      - run: sudo apt install -y ninja-build
+      - run: sudo apt install -y libgtk-3-dev
+      - run: flutter pub get
+      - run: flutter config --enable-linux-desktop
+      - run: flutter build linux
+      - uses: actions/upload-artifact@v2
+        with:
+          name: linux
+          path: build/linux/
+
+  android:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,17 +35,11 @@ jobs:
         with:
           flutter-version: '2.5.2'
       - run: flutter pub get
-      - run: flutter config --enable-linux-desktop
       - run: flutter build apk
-      - run: flutter build linux
       - uses: actions/upload-artifact@v2
         with:
           name: android-release.apk
           path: build/app/outputs/flutter_apk/app-release.apk
-      - uses: actions/upload-artifact@v2
-        with:
-          name: linux
-          path: build/linux/
 
   macos_ios:
     runs-on: macos-latest
@@ -47,7 +58,7 @@ jobs:
         path: build/ios/iphoneos/Runner.app
     - uses: actions/upload-artifact@v2
       with:
-        name: macos
+        name: macos.app
         path: build/macos/Build/Products/Release/hall_of_fame.app
 
   windows:
