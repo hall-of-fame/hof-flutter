@@ -55,7 +55,7 @@ class _SearchPageState extends State<SearchPage> {
           ),
         ],
       ),
-      body: StaggeredGridView.countBuilder(
+      body: MasonryGridView.count(
         crossAxisCount: 2,
         mainAxisSpacing: 4.0,
         crossAxisSpacing: 4.0,
@@ -64,7 +64,6 @@ class _SearchPageState extends State<SearchPage> {
           sticker: filteredStickers[index],
           showAuthor: true,
         ),
-        staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
       ),
     );
   }

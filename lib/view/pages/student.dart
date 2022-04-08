@@ -72,7 +72,7 @@ class _StudentPageState extends State<StudentPage> {
               ),
             ),
           ),
-          StaggeredGridView.countBuilder(
+          MasonryGridView.count(
             crossAxisCount: 2,
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
@@ -83,7 +83,6 @@ class _StudentPageState extends State<StudentPage> {
               sticker: stickers[index],
               showAuthor: false,
             ),
-            staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
           ),
         ],
       ),

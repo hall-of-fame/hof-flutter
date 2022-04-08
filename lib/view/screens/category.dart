@@ -102,7 +102,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                         )
                         .toList(),
                   ]),
-            StaggeredGridView.countBuilder(
+            MasonryGridView.count(
               crossAxisCount: 2,
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
@@ -117,7 +117,6 @@ class _CategoryScreenState extends State<CategoryScreen>
                         ? false
                         : true,
               ),
-              staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
             ),
           ],
         );
