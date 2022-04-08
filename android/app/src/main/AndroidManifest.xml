@@ -3,6 +3,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:label="Hall of Fame"
+        android:extractNativeLibs="true"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
