@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-const String version = '0.1.0';
+const String version = '0.2.0';
 
 class AboutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
