@@ -3,9 +3,8 @@ import 'package:provider/provider.dart';
 
 import 'screens/category.dart';
 import 'screens/ranking.dart';
-import 'screens/favorite.dart';
 
-import 'pages/settings.dart';
+import 'screens/settings.dart';
 import 'pages/about.dart';
 import 'pages/search.dart';
 
@@ -46,7 +45,7 @@ class _HomePageState extends State<HomePage> {
         children: <Widget>[
           WrappedScreen(CategoryScreen()),
           WrappedScreen(RankingScreen()),
-          FavoriteScreen(),
+          SettingsScreen(),
         ],
         controller: _pageController,
         onPageChanged: (index) => setState(() => _pageIndex = index),
@@ -69,14 +68,6 @@ class SideDrawer extends StatelessWidget {
             child: Text(
               "Hall of Fame",
               style: TextStyle(color: Colors.white),
-            ),
-          ),
-          ListTile(
-            leading: Icon(Icons.settings),
-            title: Text("Settings"),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => SettingsScreen()),
             ),
           ),
           ListTile(
@@ -111,8 +102,8 @@ class BottomNavigator extends StatelessWidget {
           label: "Ranking",
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.favorite),
-          label: "Favorite",
+          icon: Icon(Icons.settings),
+          label: "Settings",
         ),
       ],
       onTap: (int index) => switchTab(index),

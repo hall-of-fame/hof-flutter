@@ -48,18 +48,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Settings")),
-      body: Container(
-        padding: EdgeInsets.all(24.0),
-        child: ListTile(
-          title: Text("Password"),
-          leading: Icon(Icons.password),
-          trailing: Icon(Icons.edit),
-          onTap: () => showDialog(
-            context: context,
-            builder: _passwordDialog,
-          ),
+    return Container(
+      padding: EdgeInsets.all(24.0),
+      child: ListTile(
+        title: Text("Password"),
+        leading: Icon(Icons.password),
+        trailing: Icon(Icons.edit),
+        onTap: () => showDialog(
+          context: context,
+          builder: _passwordDialog,
         ),
       ),
     );
