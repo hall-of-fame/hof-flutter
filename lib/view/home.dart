@@ -5,7 +5,6 @@ import 'screens/category.dart';
 import 'screens/ranking.dart';
 
 import 'screens/settings.dart';
-import 'pages/about.dart';
 import 'pages/search.dart';
 
 import 'package:hall_of_fame/common/provider.dart';
@@ -40,7 +39,6 @@ class _HomePageState extends State<HomePage> {
           })
         ],
       ),
-      drawer: SideDrawer(),
       body: PageView(
         children: <Widget>[
           WrappedScreen(CategoryScreen()),
@@ -53,32 +51,6 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigator(
         switchTab: (index) => _pageController.jumpToPage(index),
         currentIndex: _pageIndex,
-      ),
-    );
-  }
-}
-
-class SideDrawer extends StatelessWidget {
-  Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        children: [
-          DrawerHeader(
-            decoration: BoxDecoration(color: Colors.green),
-            child: Text(
-              "Hall of Fame",
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-          ListTile(
-            leading: Icon(Icons.info),
-            title: Text("About"),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => AboutScreen()),
-            ),
-          ),
-        ],
       ),
     );
   }
