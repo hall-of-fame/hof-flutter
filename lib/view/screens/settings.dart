@@ -53,6 +53,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return SettingsList(
       lightTheme: SettingsThemeData(titleTextColor: Colors.green),
+      platform: DevicePlatform.android,
       sections: [
         SettingsSection(
           title: Text("Basics"),
