@@ -3,23 +3,23 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
-  "main.dart.js": "e3f5fd43a85c5ce10b7819f48f973262",
-"index.html": "262ece6596ec19cad2f9546f9c1abe93",
-"/": "262ece6596ec19cad2f9546f9c1abe93",
-"favicon.png": "5dcef449791fa27946b3d35ad8803796",
-"assets/fonts/MaterialIcons-Regular.otf": "7e7a6cccddf6d7b20012a548461d5d81",
-"assets/AssetManifest.json": "052da70fd40d9ece64632d0aeba49f8f",
-"assets/FontManifest.json": "7b2a36307916a9721811788013e65289",
-"assets/assets/logo.png": "c1d14500ac33c6d5a116ba66c1b6a5cc",
-"assets/NOTICES": "24c2acc2491bec44dd60d5121abec3e1",
-"icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
-"icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
+  "main.dart.js": "97680d309b46273801e213e3208016e5",
 "manifest.json": "ff18b5c7132cd9d928975d1b7867b02e",
 "version.json": "318994843da725329e01ba21b10dd749",
-"canvaskit/profiling/canvaskit.wasm": "95e736ab31147d1b2c7b25f11d4c32cd",
+"index.html": "91b182634326ccd51fb962e6016ae961",
+"/": "91b182634326ccd51fb962e6016ae961",
+"icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
+"icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
+"canvaskit/canvaskit.js": "c2b4e5f3d7a3d82aed024e7249a78487",
 "canvaskit/profiling/canvaskit.js": "ae2949af4efc61d28a4a80fffa1db900",
+"canvaskit/profiling/canvaskit.wasm": "95e736ab31147d1b2c7b25f11d4c32cd",
 "canvaskit/canvaskit.wasm": "4b83d89d9fecbea8ca46f2f760c5a9ba",
-"canvaskit/canvaskit.js": "c2b4e5f3d7a3d82aed024e7249a78487"
+"assets/AssetManifest.json": "052da70fd40d9ece64632d0aeba49f8f",
+"assets/fonts/MaterialIcons-Regular.otf": "7e7a6cccddf6d7b20012a548461d5d81",
+"assets/assets/logo.png": "c1d14500ac33c6d5a116ba66c1b6a5cc",
+"assets/NOTICES": "24c2acc2491bec44dd60d5121abec3e1",
+"assets/FontManifest.json": "7b2a36307916a9721811788013e65289",
+"favicon.png": "5dcef449791fa27946b3d35ad8803796"
 };
 
 // The application shell files that are downloaded before a service worker can
