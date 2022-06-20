@@ -6,19 +6,24 @@ import 'package:hall_of_fame/common/provider.dart';
 import 'package:hall_of_fame/view/pages/student.dart';
 
 class RankingScreen extends StatefulWidget {
-  _RankingScreenState createState() => _RankingScreenState();
+  const RankingScreen({Key? key}) : super(key: key);
+
+  @override
+  State<RankingScreen> createState() => _RankingScreenState();
 }
 
 class _RankingScreenState extends State<RankingScreen>
     with AutomaticKeepAliveClientMixin {
+  @override
   bool get wantKeepAlive => true;
 
+  @override
   Widget build(BuildContext context) {
     super.build(context);
     return Consumer<StickersProvider>(
       builder: (context, provider, child) {
         return ListView(
-          padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
           children: provider.students
               .asMap()
               .entries
@@ -39,16 +44,17 @@ class _RankingScreenState extends State<RankingScreen>
                       ),
                     ),
                     child: Container(
-                      padding: EdgeInsets.all(12),
+                      padding: const EdgeInsets.all(12),
                       child: Column(
                         children: [
                           Container(
-                            margin: EdgeInsets.fromLTRB(0, 0, 0, 8),
+                            margin: const EdgeInsets.fromLTRB(0, 0, 0, 8),
                             child: Flex(
                               direction: Axis.horizontal,
                               children: [
                                 Container(
-                                  margin: EdgeInsets.fromLTRB(0, 0, 12, 0),
+                                  margin:
+                                      const EdgeInsets.fromLTRB(0, 0, 12, 0),
                                   child: Text(
                                     (entry.key + 1).toString(),
                                     style: TextStyle(
@@ -59,14 +65,15 @@ class _RankingScreenState extends State<RankingScreen>
                                 Container(
                                   width: 48,
                                   height: 48,
-                                  margin: EdgeInsets.fromLTRB(0, 0, 16, 0),
+                                  margin:
+                                      const EdgeInsets.fromLTRB(0, 0, 16, 0),
                                   child: ClipOval(
                                     child: CachedNetworkImage(
                                       placeholder: (context, url) =>
-                                          CircularProgressIndicator(),
+                                          const CircularProgressIndicator(),
                                       imageUrl: entry.value.avatar,
                                       errorWidget: (context, url, error) =>
-                                          Icon(Icons.error),
+                                          const Icon(Icons.error),
                                     ),
                                   ),
                                 ),
@@ -80,11 +87,13 @@ class _RankingScreenState extends State<RankingScreen>
                                     children: [
                                       Text(
                                         "年级: ${entry.value.grade}",
-                                        style: TextStyle(color: Colors.grey),
+                                        style:
+                                            const TextStyle(color: Colors.grey),
                                       ),
                                       Text(
                                         "部门: ${entry.value.department}",
-                                        style: TextStyle(color: Colors.grey),
+                                        style:
+                                            const TextStyle(color: Colors.grey),
                                       ),
                                     ],
                                   ),
@@ -102,7 +111,7 @@ class _RankingScreenState extends State<RankingScreen>
                                 ),
                               ),
                               Container(
-                                margin: EdgeInsets.fromLTRB(16, 0, 0, 0),
+                                margin: const EdgeInsets.fromLTRB(16, 0, 0, 0),
                                 width: 48,
                                 child: Text(
                                   entry.value.stickersNumber.toString(),
@@ -133,8 +142,9 @@ class ProgressBar extends StatelessWidget {
   final int ratio;
   final int length;
 
-  ProgressBar(this.ratio, this.length);
+  const ProgressBar(this.ratio, this.length, {Key? key}) : super(key: key);
 
+  @override
   Widget build(BuildContext context) {
     return Container(
       height: 12,

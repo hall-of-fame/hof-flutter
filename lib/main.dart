@@ -8,6 +8,9 @@ import 'common/provider.dart';
 const Color m3BaseColor = Color(0xff6750a4);
 
 class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Hall of Fame",
@@ -18,15 +21,15 @@ class App extends StatelessWidget {
       ),
       home: ChangeNotifierProvider(
         create: (context) => StickersProvider(),
-        child: HomePage(),
+        child: const HomePage(),
       ),
     );
   }
 }
 
 void main() {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
-  runApp(App());
+  runApp(const App());
 }

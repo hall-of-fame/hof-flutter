@@ -5,7 +5,10 @@ import 'package:settings_ui/settings_ui.dart';
 import 'package:hall_of_fame/view/pages/about.dart';
 
 class SettingsScreen extends StatefulWidget {
-  _SettingsScreenState createState() => _SettingsScreenState();
+  const SettingsScreen({Key? key}) : super(key: key);
+
+  @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
@@ -15,38 +18,39 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return SimpleDialog(
       children: [
         Container(
-          padding: EdgeInsets.fromLTRB(24, 8, 24, 0),
-          child: Text(
+          padding: const EdgeInsets.fromLTRB(24, 8, 24, 0),
+          child: const Text(
             "New Password",
             style: TextStyle(fontSize: 22),
           ),
         ),
         Container(
-          padding: EdgeInsets.fromLTRB(24, 8, 24, 0),
+          padding: const EdgeInsets.fromLTRB(24, 8, 24, 0),
           child: TextField(
-            decoration: InputDecoration(border: OutlineInputBorder()),
-            style: TextStyle(height: 1.0),
+            decoration: const InputDecoration(border: OutlineInputBorder()),
+            style: const TextStyle(height: 1.0),
             onChanged: (value) => setState(() {
               password = value;
             }),
           ),
         ),
         Container(
-          padding: EdgeInsets.fromLTRB(24, 16, 24, 0),
+          padding: const EdgeInsets.fromLTRB(24, 16, 24, 0),
           child: Row(
             textDirection: TextDirection.rtl,
             children: [
               TextButton(
-                onPressed: () async {
-                  final prefs = await SharedPreferences.getInstance();
-                  prefs.setString("password", password);
+                onPressed: () {
                   Navigator.pop(context, "OK");
+                  SharedPreferences.getInstance().then(
+                    (prefs) => prefs.setString("password", password),
+                  );
                 },
-                child: Text("OK"),
+                child: const Text("OK"),
               ),
               TextButton(
                 onPressed: () => Navigator.pop(context, "Cancel"),
-                child: Text("Cancel"),
+                child: const Text("Cancel"),
               ),
             ],
           ),
@@ -55,6 +59,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
+  @override
   Widget build(BuildContext context) {
     return SettingsList(
       platform: DevicePlatform.android,
@@ -62,12 +67,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
           settingsListBackground: Theme.of(context).backgroundColor),
       sections: [
         SettingsSection(
-          title: Text("Basics"),
+          title: const Text("Basics"),
           tiles: [
             SettingsTile(
-              leading: Icon(Icons.password),
-              title: Text("Password"),
-              value: Text('API Authentication'),
+              leading: const Icon(Icons.password),
+              title: const Text("Password"),
+              value: const Text('API Authentication'),
               onPressed: (context) => showDialog(
                 context: context,
                 builder: (context) => _passwordDialog(context),
@@ -76,16 +81,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ],
         ),
         SettingsSection(
-          title: Text("Others"),
+          title: const Text("Others"),
           tiles: [
             SettingsTile.navigation(
-              leading: Icon(Icons.info),
-              title: Text("About"),
+              leading: const Icon(Icons.info),
+              title: const Text("About"),
               onPressed: (context) => {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AboutScreen(),
+                    builder: (context) => const AboutScreen(),
                   ),
                 )
               },

@@ -30,52 +30,48 @@ class StickersProvider with ChangeNotifier {
   }
 
   void _initStickers() async {
-    _data.forEach(
-      (department) => department.grades.forEach(
-        (grade) => grade.students.forEach(
-          (student) => student.stickers.forEach(
-            (sticker) {
-              var element = StickerElement(
-                image: "https://zhongtai521.wang:996${sticker.url}",
-                avatar: "https://q1.qlogo.cn/g?b=qq&nk=${student.avatar}&s=640",
-                author: student.name,
-                title: sticker.desc,
-                department: department.name,
-                grade: grade.name,
-              );
-              stickers.add(element);
-            },
-          ),
-        ),
-      ),
-    );
+    for (var department in _data) {
+      for (var grade in department.grades) {
+        for (var student in grade.students) {
+          for (var sticker in student.stickers) {
+            var element = StickerElement(
+              image: "https://zhongtai521.wang:996${sticker.url}",
+              avatar: "https://q1.qlogo.cn/g?b=qq&nk=${student.avatar}&s=640",
+              author: student.name,
+              title: sticker.desc,
+              department: department.name,
+              grade: grade.name,
+            );
+            stickers.add(element);
+          }
+        }
+      }
+    }
     notifyListeners();
   }
 
   void _initStudents() async {
-    _data.forEach(
-      (department) => department.grades.forEach(
-        (grade) => grade.students.forEach(
-          (student) {
-            var element = StudentElement(
-              name: student.name,
-              avatar: "https://q1.qlogo.cn/g?b=qq&nk=${student.avatar}&s=640",
-              department: department.name,
-              grade: grade.name,
-              stickersNumber: stickers
-                  .where((sticker) => sticker.author == student.name)
-                  .length,
-            );
-            students.add(element);
-          },
-        ),
-      ),
-    );
-    students.forEach((student) {
+    for (var department in _data) {
+      for (var grade in department.grades) {
+        for (var student in grade.students) {
+          var element = StudentElement(
+            name: student.name,
+            avatar: "https://q1.qlogo.cn/g?b=qq&nk=${student.avatar}&s=640",
+            department: department.name,
+            grade: grade.name,
+            stickersNumber: stickers
+                .where((sticker) => sticker.author == student.name)
+                .length,
+          );
+          students.add(element);
+        }
+      }
+    }
+    for (var student in students) {
       if (student.stickersNumber > studentMaxStickers) {
         _studentMaxStickers = student.stickersNumber;
       }
-    });
+    }
     students.sort((a, b) => b.stickersNumber - a.stickersNumber);
     notifyListeners();
   }
@@ -83,7 +79,7 @@ class StickersProvider with ChangeNotifier {
   Future<Response> _fetchData() async {
     final url = Uri.parse('https://zhongtai521.wang:996/departments/');
     final prefs = await SharedPreferences.getInstance();
-    var response;
+    http.Response response;
     try {
       response = await http.get(url, headers: {
         "Authorization": prefs.getString("password") ?? "",

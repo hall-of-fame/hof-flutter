@@ -6,23 +6,23 @@ import 'package:hall_of_fame/view/components/StickerCard.dart';
 
 class SearchPage extends StatefulWidget {
   final List<StickerElement> stickers;
-  SearchPage({required this.stickers});
-  _SearchPageState createState() => _SearchPageState(stickers: this.stickers);
+  const SearchPage({Key? key, required this.stickers}) : super(key: key);
+
+  @override
+  State<SearchPage> createState() => _SearchPageState();
 }
 
 class _SearchPageState extends State<SearchPage> {
-  final List<StickerElement> stickers;
   List<StickerElement> filteredStickers = [];
   final TextEditingController _controller = TextEditingController();
 
-  _SearchPageState({required this.stickers});
-
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: TextField(
           autofocus: true,
-          decoration: InputDecoration(border: InputBorder.none),
+          decoration: const InputDecoration(border: InputBorder.none),
           controller: _controller,
           onChanged: (value) {
             if (value == "") {
@@ -30,25 +30,25 @@ class _SearchPageState extends State<SearchPage> {
               return;
             }
             List<StickerElement> newFilteredStickers = [];
-            stickers.forEach((sticker) {
+            for (var sticker in widget.stickers) {
               if (value
                   .split(" ")
                   .every((keyword) => sticker.title.contains(keyword))) {
                 newFilteredStickers.add(sticker);
               }
-            });
+            }
             setState(() => filteredStickers = newFilteredStickers);
           },
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.cancel),
+            icon: const Icon(Icons.cancel),
             onPressed: () {
-              this._controller.text = "";
+              _controller.text = "";
             },
           ),
         ],

@@ -11,17 +11,21 @@ import 'package:hall_of_fame/common/provider.dart';
 import 'package:hall_of_fame/common/enums.dart';
 
 class HomePage extends StatefulWidget {
-  _HomePageState createState() => _HomePageState();
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  PageController _pageController = PageController();
+  final PageController _pageController = PageController();
   int _pageIndex = 0;
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Hall of Fame"),
+        title: const Text("Hall of Fame"),
         actions: [
           Consumer<StickersProvider>(builder: (context, provider, child) {
             return IconButton(
@@ -34,19 +38,19 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               tooltip: "Search",
-              icon: Icon(Icons.search),
+              icon: const Icon(Icons.search),
             );
           })
         ],
       ),
       body: PageView(
-        children: <Widget>[
+        controller: _pageController,
+        onPageChanged: (index) => setState(() => _pageIndex = index),
+        children: const <Widget>[
           WrappedScreen(CategoryScreen()),
           WrappedScreen(RankingScreen()),
           SettingsScreen(),
         ],
-        controller: _pageController,
-        onPageChanged: (index) => setState(() => _pageIndex = index),
       ),
       bottomNavigationBar: BottomNavigator(
         switchTab: (index) => _pageController.jumpToPage(index),
@@ -60,12 +64,15 @@ class BottomNavigator extends StatelessWidget {
   final void Function(int) switchTab;
   final int currentIndex;
 
-  BottomNavigator({required this.switchTab, required this.currentIndex});
+  const BottomNavigator(
+      {Key? key, required this.switchTab, required this.currentIndex})
+      : super(key: key);
 
+  @override
   Widget build(BuildContext context) {
     return NavigationBar(
       labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-      destinations: <NavigationDestination>[
+      destinations: const <NavigationDestination>[
         NavigationDestination(
           icon: Icon(Icons.category),
           label: "Category",
@@ -88,29 +95,29 @@ class BottomNavigator extends StatelessWidget {
 class WrappedScreen extends StatelessWidget {
   final Widget innerScreen;
 
-  WrappedScreen(this.innerScreen);
+  const WrappedScreen(this.innerScreen, {Key? key}) : super(key: key);
 
+  @override
   Widget build(BuildContext context) {
     return Consumer<StickersProvider>(builder: (context, provider, child) {
-      print(provider.status);
       switch (provider.status) {
         case LoadingState.loading:
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         case LoadingState.success:
-          return this.innerScreen;
+          return innerScreen;
         case LoadingState.failure:
           return Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text("FAILED"),
+                const Text("FAILED"),
                 Container(
-                  padding: EdgeInsets.fromLTRB(32, 8, 32, 20),
+                  padding: const EdgeInsets.fromLTRB(32, 8, 32, 20),
                   child: Text(provider.errMsg),
                 ),
                 OutlinedButton(
                   onPressed: provider.init,
-                  child: Text("Retry"),
+                  child: const Text("Retry"),
                 ),
               ],
             ),

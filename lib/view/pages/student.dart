@@ -9,26 +9,26 @@ class StudentPage extends StatefulWidget {
   final StudentElement student;
   final List<StickerElement> stickers;
 
-  StudentPage({required this.student, required this.stickers});
+  const StudentPage({
+    Key? key,
+    required this.student,
+    required this.stickers,
+  }) : super(key: key);
 
-  _StudentPageState createState() =>
-      _StudentPageState(student: this.student, stickers: this.stickers);
+  @override
+  State<StudentPage> createState() => _StudentPageState();
 }
 
 class _StudentPageState extends State<StudentPage> {
-  final StudentElement student;
-  final List<StickerElement> stickers;
-
-  _StudentPageState({required this.student, required this.stickers});
-
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(student.name)),
+      appBar: AppBar(title: Text(widget.student.name)),
       body: ListView(
         children: [
           Container(
             alignment: Alignment.center,
-            margin: EdgeInsets.all(24),
+            margin: const EdgeInsets.all(24),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.min,
@@ -38,18 +38,18 @@ class _StudentPageState extends State<StudentPage> {
                     Container(
                       width: 48,
                       height: 48,
-                      margin: EdgeInsets.fromLTRB(0, 0, 0, 8),
+                      margin: const EdgeInsets.fromLTRB(0, 0, 0, 8),
                       child: ClipOval(
                         child: CachedNetworkImage(
                           placeholder: (context, url) =>
-                              CircularProgressIndicator(),
-                          imageUrl: student.avatar,
+                              const CircularProgressIndicator(),
+                          imageUrl: widget.student.avatar,
                           errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
+                              const Icon(Icons.error),
                         ),
                       ),
                     ),
-                    Text(student.name),
+                    Text(widget.student.name),
                   ],
                 ),
                 Container(width: 36),
@@ -57,12 +57,12 @@ class _StudentPageState extends State<StudentPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "年级: 20${student.grade}",
-                      style: TextStyle(color: Colors.grey),
+                      "年级: 20${widget.student.grade}",
+                      style: const TextStyle(color: Colors.grey),
                     ),
                     Text(
-                      "部门: ${student.department}",
-                      style: TextStyle(color: Colors.grey),
+                      "部门: ${widget.student.department}",
+                      style: const TextStyle(color: Colors.grey),
                     ),
                   ],
                 ),
@@ -71,13 +71,13 @@ class _StudentPageState extends State<StudentPage> {
           ),
           MasonryGridView.count(
             crossAxisCount: 2,
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             mainAxisSpacing: 4.0,
             crossAxisSpacing: 4.0,
-            itemCount: stickers.length,
+            itemCount: widget.stickers.length,
             itemBuilder: (context, index) => StickerCard(
-              sticker: stickers[index],
+              sticker: widget.stickers[index],
               showAuthor: false,
             ),
           ),

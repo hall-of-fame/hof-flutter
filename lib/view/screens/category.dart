@@ -7,30 +7,35 @@ import 'package:hall_of_fame/common/classes.dart';
 import 'package:hall_of_fame/view/components/StickerCard.dart';
 
 class CategoryScreen extends StatefulWidget {
-  _CategoryScreenState createState() => _CategoryScreenState();
+  const CategoryScreen({Key? key}) : super(key: key);
+
+  @override
+  State<CategoryScreen> createState() => _CategoryScreenState();
 }
 
 class _CategoryScreenState extends State<CategoryScreen>
     with AutomaticKeepAliveClientMixin {
+  @override
   bool get wantKeepAlive => true;
 
   Filter filter = Filter();
 
+  @override
   initState() {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     super.build(context);
     return Consumer<StickersProvider>(
       builder: (context, stickers, child) {
-        if (filter.students.length == 0)
-          filter.updateStudents(stickers.stickers);
+        if (filter.students.isEmpty) filter.updateStudents(stickers.stickers);
         final filteredStickers = stickers.stickers
             .where((sticker) => filter.students[sticker.author] ?? false)
             .toList();
         return ListView(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           children: [
             Text(
               "Departments",
@@ -43,12 +48,12 @@ class _CategoryScreenState extends State<CategoryScreen>
               ...filter.departments.keys
                   .map(
                     (department) => Container(
-                      padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
+                      padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
                       // TODO: Use Material Design 3 Chip
                       child: FilterChip(
                         selectedColor: Theme.of(context).primaryColor,
                         checkmarkColor: Colors.white,
-                        labelStyle: TextStyle(color: Colors.white),
+                        labelStyle: const TextStyle(color: Colors.white),
                         label: Text(department),
                         selected: filter.departments[department] ?? false,
                         onSelected: (selected) => setState(() {
@@ -71,11 +76,11 @@ class _CategoryScreenState extends State<CategoryScreen>
               ...filter.grades.keys
                   .map(
                     (grade) => Container(
-                      padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
+                      padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
                       child: FilterChip(
                         selectedColor: Theme.of(context).primaryColor,
                         checkmarkColor: Colors.white,
-                        labelStyle: TextStyle(color: Colors.white),
+                        labelStyle: const TextStyle(color: Colors.white),
                         label: Text(grade),
                         selected: filter.grades[grade] ?? false,
                         onSelected: (selected) => setState(() {
@@ -94,10 +99,10 @@ class _CategoryScreenState extends State<CategoryScreen>
                 fontSize: Theme.of(context).textTheme.titleMedium!.fontSize,
               ),
             ),
-            filter.students.length == 0
+            filter.students.isEmpty
                 ? Container(
-                    padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
-                    child: Text(
+                    padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                    child: const Text(
                       "None is available",
                       style: TextStyle(color: Colors.grey),
                     ),
@@ -106,11 +111,11 @@ class _CategoryScreenState extends State<CategoryScreen>
                     ...filter.students.keys
                         .map(
                           (student) => Container(
-                            padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
+                            padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
                             child: FilterChip(
                               selectedColor: Theme.of(context).primaryColor,
                               checkmarkColor: Colors.white,
-                              labelStyle: TextStyle(color: Colors.white),
+                              labelStyle: const TextStyle(color: Colors.white),
                               label: Text(student),
                               selected: filter.students[student] ?? false,
                               onSelected: (selected) => setState(
@@ -123,7 +128,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                   ]),
             MasonryGridView.count(
               crossAxisCount: 2,
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               mainAxisSpacing: 4.0,
               crossAxisSpacing: 4.0,
@@ -164,16 +169,17 @@ class Filter {
   };
   Map<String, bool> students = {};
   void updateStudents(List<StickerElement> stickers) {
-    var studentsSet = Set<String>();
-    stickers.forEach((sticker) {
+    var studentsSet = <String>{};
+    for (var sticker in stickers) {
       if ((departments[sticker.department] ?? false) &&
           (grades[sticker.grade] ?? false)) {
         studentsSet.add(sticker.author);
       }
-    });
-    print(studentsSet);
+    }
     Map<String, bool> tempStudents = {};
-    studentsSet.forEach((String student) => tempStudents[student] = false);
+    for (var student in studentsSet) {
+      tempStudents[student] = false;
+    }
     students.forEach((key, value) {
       if (tempStudents.containsKey(key)) tempStudents[key] = value;
     });

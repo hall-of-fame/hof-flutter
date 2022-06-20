@@ -12,8 +12,13 @@ class StickerCard extends StatelessWidget {
   final StickerElement sticker;
   final bool showAuthor;
 
-  StickerCard({required this.sticker, required this.showAuthor});
+  const StickerCard({
+    Key? key,
+    required this.sticker,
+    required this.showAuthor,
+  }) : super(key: key);
 
+  @override
   Widget build(BuildContext context) {
     return Card(
       clipBehavior: Clip.antiAlias,
@@ -40,43 +45,43 @@ class StickerCard extends StatelessWidget {
           children: [
             CachedNetworkImage(
               placeholder: (context, url) =>
-                  Center(child: CircularProgressIndicator()),
+                  const Center(child: CircularProgressIndicator()),
               imageUrl: sticker.image,
-              errorWidget: (context, url, error) => Icon(Icons.error),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
             showAuthor
                 ? Container(
-                    margin: EdgeInsets.fromLTRB(8, 6, 6, 0),
+                    margin: const EdgeInsets.fromLTRB(8, 6, 6, 0),
                     child: Flex(
                       direction: Axis.horizontal,
                       children: [
                         Container(
                           width: 24,
                           height: 24,
-                          margin: EdgeInsets.fromLTRB(0, 0, 12, 0),
+                          margin: const EdgeInsets.fromLTRB(0, 0, 12, 0),
                           child: ClipOval(
                             child: CachedNetworkImage(
                               placeholder: (context, url) =>
-                                  CircularProgressIndicator(),
+                                  const CircularProgressIndicator(),
                               imageUrl: sticker.avatar,
                               errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
+                                  const Icon(Icons.error),
                             ),
                           ),
                         ),
                         Text(
                           sticker.author,
-                          style: TextStyle(color: Colors.grey),
+                          style: const TextStyle(color: Colors.grey),
                         )
                       ],
                     ),
                   )
                 : Container(),
             Container(
-              padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
+              padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
               child: Text(
                 sticker.title,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.grey,
                   fontSize: 10,
                 ),
