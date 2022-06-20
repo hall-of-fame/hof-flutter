@@ -24,6 +24,7 @@ class _RankingScreenState extends State<RankingScreen>
               .entries
               .map(
                 (entry) => Card(
+                  clipBehavior: Clip.antiAlias,
                   child: InkWell(
                     onTap: () => Navigator.push(
                       context,

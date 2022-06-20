@@ -16,8 +16,8 @@ class StickerCard extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Card(
+      clipBehavior: Clip.antiAlias,
       child: InkWell(
-        splashColor: Colors.green.withAlpha(30),
         onTap: () async {
           final ext = RegExp(r"^.*\.(.*)$")
               .allMatches(sticker.image)
