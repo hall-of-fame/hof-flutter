@@ -32,14 +32,21 @@ class _CategoryScreenState extends State<CategoryScreen>
         return ListView(
           padding: EdgeInsets.all(20),
           children: [
-            Text("Departments"),
+            Text(
+              "Departments",
+              style: TextStyle(
+                color: Theme.of(context).textTheme.titleMedium!.color,
+                fontSize: Theme.of(context).textTheme.titleMedium!.fontSize,
+              ),
+            ),
             Wrap(children: [
               ...filter.departments.keys
                   .map(
                     (department) => Container(
                       padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
+                      // TODO: Use Material Design 3 Chip
                       child: FilterChip(
-                        selectedColor: Colors.green,
+                        selectedColor: Theme.of(context).primaryColor,
                         checkmarkColor: Colors.white,
                         labelStyle: TextStyle(color: Colors.white),
                         label: Text(department),
@@ -53,14 +60,20 @@ class _CategoryScreenState extends State<CategoryScreen>
                   )
                   .toList(),
             ]),
-            Text("Grades"),
+            Text(
+              "Grades",
+              style: TextStyle(
+                color: Theme.of(context).textTheme.titleMedium!.color,
+                fontSize: Theme.of(context).textTheme.titleMedium!.fontSize,
+              ),
+            ),
             Wrap(children: [
               ...filter.grades.keys
                   .map(
                     (grade) => Container(
                       padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
                       child: FilterChip(
-                        selectedColor: Colors.green,
+                        selectedColor: Theme.of(context).primaryColor,
                         checkmarkColor: Colors.white,
                         labelStyle: TextStyle(color: Colors.white),
                         label: Text(grade),
@@ -74,7 +87,13 @@ class _CategoryScreenState extends State<CategoryScreen>
                   )
                   .toList(),
             ]),
-            Text("Students"),
+            Text(
+              "Students",
+              style: TextStyle(
+                color: Theme.of(context).textTheme.titleMedium!.color,
+                fontSize: Theme.of(context).textTheme.titleMedium!.fontSize,
+              ),
+            ),
             filter.students.length == 0
                 ? Container(
                     padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
@@ -89,7 +108,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                           (student) => Container(
                             padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
                             child: FilterChip(
-                              selectedColor: Colors.green,
+                              selectedColor: Theme.of(context).primaryColor,
                               checkmarkColor: Colors.white,
                               labelStyle: TextStyle(color: Colors.white),
                               label: Text(student),
