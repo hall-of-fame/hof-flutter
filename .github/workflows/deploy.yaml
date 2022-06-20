@@ -36,36 +36,36 @@ jobs:
           name: android
           path: build/app/outputs/flutter-apk/
 
-  macos:
-    runs-on: macos-latest
-    steps:
-    - uses: actions/checkout@v2
-    - run: sudo softwareupdate --install-rosetta --agree-to-license
-    - uses: subosito/flutter-action@v1
-      with:
-        flutter-version: '3.0.2'
-    - run: flutter config --enable-macos-desktop
-    - run: flutter pub get
-    - run: flutter build macos
-    - uses: actions/upload-artifact@v2
-      with:
-        name: macos
-        path: build/macos/Build/Products/Release/Hall of Fame.app
+  # macos:
+  #   runs-on: macos-latest
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - run: sudo softwareupdate --install-rosetta --agree-to-license
+  #   - uses: subosito/flutter-action@v1
+  #     with:
+  #       flutter-version: '3.0.2'
+  #   - run: flutter config --enable-macos-desktop
+  #   - run: flutter pub get
+  #   - run: flutter build macos
+  #   - uses: actions/upload-artifact@v2
+  #     with:
+  #       name: macos
+  #       path: build/macos/Build/Products/Release/Hall of Fame.app
 
-  ios:
-    runs-on: macos-latest
-    steps:
-    - uses: actions/checkout@v2
-    - run: sudo softwareupdate --install-rosetta --agree-to-license
-    - uses: subosito/flutter-action@v1
-      with:
-        flutter-version: '3.0.2'
-    - run: flutter pub get
-    - run: flutter build ios --release --no-codesign
-    - uses: actions/upload-artifact@v2
-      with:
-        name: ios
-        path: build/ios/iphoneos/Runner.app
+  # ios:
+  #   runs-on: macos-latest
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - run: sudo softwareupdate --install-rosetta --agree-to-license
+  #   - uses: subosito/flutter-action@v1
+  #     with:
+  #       flutter-version: '3.0.2'
+  #   - run: flutter pub get
+  #   - run: flutter build ios --release --no-codesign
+  #   - uses: actions/upload-artifact@v2
+  #     with:
+  #       name: ios
+  #       path: build/ios/iphoneos/Runner.app
 
   windows:
     runs-on: windows-latest
