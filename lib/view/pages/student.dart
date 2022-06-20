@@ -26,19 +26,19 @@ class _StudentPageState extends State<StudentPage> {
       appBar: AppBar(title: Text(student.name)),
       body: ListView(
         children: [
-          ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: 480),
-            child: Card(
-              child: Container(
-                margin: EdgeInsets.fromLTRB(0, 16, 0, 8),
-                padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
-                child: Flex(
-                  direction: Axis.horizontal,
+          Container(
+            alignment: Alignment.center,
+            margin: EdgeInsets.all(24),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Column(
                   children: [
                     Container(
                       width: 48,
                       height: 48,
-                      margin: EdgeInsets.fromLTRB(0, 0, 16, 0),
+                      margin: EdgeInsets.fromLTRB(0, 0, 0, 8),
                       child: ClipOval(
                         child: CachedNetworkImage(
                           placeholder: (context, url) =>
@@ -49,27 +49,24 @@ class _StudentPageState extends State<StudentPage> {
                         ),
                       ),
                     ),
-                    Expanded(
-                      child: Text(student.name),
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "年级: ${student.grade}",
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                          Text(
-                            "部门: ${student.department}",
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    )
+                    Text(student.name),
                   ],
                 ),
-              ),
+                Container(width: 36),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "年级: 20${student.grade}",
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    Text(
+                      "部门: ${student.department}",
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
           MasonryGridView.count(
