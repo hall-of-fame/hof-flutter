@@ -39,7 +39,8 @@ class StickerCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CachedNetworkImage(
-              placeholder: (context, url) => CircularProgressIndicator(),
+              placeholder: (context, url) =>
+                  Center(child: CircularProgressIndicator()),
               imageUrl: sticker.image,
               errorWidget: (context, url, error) => Icon(Icons.error),
             ),
