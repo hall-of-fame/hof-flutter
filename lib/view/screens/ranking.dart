@@ -5,6 +5,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:hall_of_fame/common/provider.dart';
 import 'package:hall_of_fame/view/pages/student.dart';
 
+import '../pages/search.dart';
+
 class RankingScreen extends StatefulWidget {
   const RankingScreen({Key? key}) : super(key: key);
 
@@ -118,4 +120,34 @@ class ProgressBar extends StatelessWidget {
       ),
     );
   }
+}
+
+class RankingHeader extends StatelessWidget implements PreferredSizeWidget {
+  const RankingHeader({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      title: const Text("Ranking"),
+      actions: [
+        Consumer<StickersProvider>(builder: (context, provider, child) {
+          return IconButton(
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SearchPage(
+                  stickers: provider.stickers,
+                ),
+              ),
+            ),
+            tooltip: "Search",
+            icon: const Icon(Icons.search),
+          );
+        })
+      ],
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

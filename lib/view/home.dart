@@ -5,7 +5,6 @@ import 'screens/category.dart';
 import 'screens/ranking.dart';
 
 import 'screens/settings.dart';
-import 'pages/search.dart';
 
 import 'package:hall_of_fame/common/provider.dart';
 import 'package:hall_of_fame/common/enums.dart';
@@ -24,25 +23,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Hall of Fame"),
-        actions: [
-          Consumer<StickersProvider>(builder: (context, provider, child) {
-            return IconButton(
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SearchPage(
-                    stickers: provider.stickers,
-                  ),
-                ),
-              ),
-              tooltip: "Search",
-              icon: const Icon(Icons.search),
-            );
-          })
-        ],
-      ),
+      appBar: const <PreferredSizeWidget>[
+        CategoryHeader(),
+        RankingHeader(),
+        SettingsHeader(),
+      ][_pageIndex],
       body: PageView(
         controller: _pageController,
         onPageChanged: (index) => setState(() => _pageIndex = index),

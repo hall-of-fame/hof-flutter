@@ -133,3 +133,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 }
+
+class SettingsHeader extends StatelessWidget implements PreferredSizeWidget {
+  const SettingsHeader({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(title: const Text("Settings"));
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}

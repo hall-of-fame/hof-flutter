@@ -6,6 +6,8 @@ import 'package:hall_of_fame/common/provider.dart';
 import 'package:hall_of_fame/common/classes.dart';
 import 'package:hall_of_fame/view/components/StickerCard.dart';
 
+import '../pages/search.dart';
+
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({Key? key}) : super(key: key);
 
@@ -138,6 +140,36 @@ class _CategoryScreenState extends State<CategoryScreen>
       },
     );
   }
+}
+
+class CategoryHeader extends StatelessWidget implements PreferredSizeWidget {
+  const CategoryHeader({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      title: const Text("Category"),
+      actions: [
+        Consumer<StickersProvider>(builder: (context, provider, child) {
+          return IconButton(
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SearchPage(
+                  stickers: provider.stickers,
+                ),
+              ),
+            ),
+            tooltip: "Search",
+            icon: const Icon(Icons.search),
+          );
+        })
+      ],
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
 class Filter {
