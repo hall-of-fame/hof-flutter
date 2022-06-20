@@ -23,111 +23,57 @@ class _RankingScreenState extends State<RankingScreen>
     return Consumer<StickersProvider>(
       builder: (context, provider, child) {
         return ListView(
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
           children: provider.students
               .asMap()
               .entries
               .map(
-                (entry) => Card(
-                  clipBehavior: Clip.antiAlias,
-                  child: InkWell(
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => StudentPage(
-                          student: entry.value,
-                          stickers: provider.stickers
-                              .where((sticker) =>
-                                  sticker.author == entry.value.name)
-                              .toList(),
+                (entry) => ListTile(
+                  dense: false,
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => StudentPage(
+                        student: entry.value,
+                        stickers: provider.stickers
+                            .where(
+                                (sticker) => sticker.author == entry.value.name)
+                            .toList(),
+                      ),
+                    ),
+                  ),
+                  leading: SizedBox(
+                    width: 42,
+                    child: ClipOval(
+                      child: CachedNetworkImage(
+                        placeholder: (context, url) =>
+                            const CircularProgressIndicator(),
+                        imageUrl: entry.value.avatar,
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                      ),
+                    ),
+                  ),
+                  title: Flex(
+                    direction: Axis.horizontal,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        entry.value.name,
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      Text(
+                        entry.value.stickersNumber.toString(),
+                        style: TextStyle(
+                          fontSize:
+                              Theme.of(context).textTheme.titleLarge!.fontSize,
+                          color: Theme.of(context).hintColor,
                         ),
                       ),
-                    ),
-                    child: Container(
-                      padding: const EdgeInsets.all(12),
-                      child: Column(
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-                            child: Flex(
-                              direction: Axis.horizontal,
-                              children: [
-                                Container(
-                                  margin:
-                                      const EdgeInsets.fromLTRB(0, 0, 12, 0),
-                                  child: Text(
-                                    (entry.key + 1).toString(),
-                                    style: TextStyle(
-                                        fontSize: 24,
-                                        color: Colors.black.withOpacity(.6)),
-                                  ),
-                                ),
-                                Container(
-                                  width: 48,
-                                  height: 48,
-                                  margin:
-                                      const EdgeInsets.fromLTRB(0, 0, 16, 0),
-                                  child: ClipOval(
-                                    child: CachedNetworkImage(
-                                      placeholder: (context, url) =>
-                                          const CircularProgressIndicator(),
-                                      imageUrl: entry.value.avatar,
-                                      errorWidget: (context, url, error) =>
-                                          const Icon(Icons.error),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Text(entry.value.name),
-                                ),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "年级: ${entry.value.grade}",
-                                        style:
-                                            const TextStyle(color: Colors.grey),
-                                      ),
-                                      Text(
-                                        "部门: ${entry.value.department}",
-                                        style:
-                                            const TextStyle(color: Colors.grey),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          Flex(
-                            direction: Axis.horizontal,
-                            children: [
-                              Expanded(
-                                child: ProgressBar(
-                                  entry.value.stickersNumber,
-                                  provider.studentMaxStickers,
-                                ),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.fromLTRB(16, 0, 0, 0),
-                                width: 48,
-                                child: Text(
-                                  entry.value.stickersNumber.toString(),
-                                  style: TextStyle(
-                                    fontSize: 24,
-                                    color: Theme.of(context)
-                                        .primaryColor
-                                        .withOpacity(0.6),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
+                    ],
+                  ),
+                  subtitle: ProgressBar(
+                    entry.value.stickersNumber,
+                    provider.studentMaxStickers,
                   ),
                 ),
               )
