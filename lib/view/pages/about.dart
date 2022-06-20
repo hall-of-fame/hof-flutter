@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 const String version = '0.2.0';
 
@@ -43,8 +43,9 @@ class AboutScreen extends StatelessWidget {
             child: ListTile(
               leading: Icon(Icons.link),
               title: Text("Github Repository"),
-              onTap: () =>
-                  launch("https://github.com/hall-of-fame/hof-flutter-md"),
+              onTap: () => launchUrlString(
+                "https://github.com/hall-of-fame/hof-flutter-md",
+              ),
             ),
           ),
         ],
