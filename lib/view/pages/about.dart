@@ -41,14 +41,11 @@ class AboutScreen extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            margin: const EdgeInsets.fromLTRB(24, 0, 24, 8),
-            child: ListTile(
-              leading: const Icon(Icons.link),
-              title: const Text("Github Repository"),
-              onTap: () => launchUrlString(
-                "https://github.com/hall-of-fame/hof-flutter-md",
-              ),
+          ListTile(
+            leading: const Icon(Icons.link),
+            title: const Text("Github Repository"),
+            onTap: () => launchUrlString(
+              "https://github.com/hall-of-fame/hof-flutter-md",
             ),
           ),
         ],
