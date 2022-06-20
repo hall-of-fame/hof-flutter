@@ -39,10 +39,7 @@ class _CategoryScreenState extends State<CategoryScreen>
           children: [
             Text(
               "Departments",
-              style: TextStyle(
-                color: Theme.of(context).textTheme.titleMedium!.color,
-                fontSize: Theme.of(context).textTheme.titleMedium!.fontSize,
-              ),
+              style: Theme.of(context).textTheme.titleMedium,
             ),
             Wrap(children: [
               ...filter.departments.keys
@@ -67,10 +64,7 @@ class _CategoryScreenState extends State<CategoryScreen>
             ]),
             Text(
               "Grades",
-              style: TextStyle(
-                color: Theme.of(context).textTheme.titleMedium!.color,
-                fontSize: Theme.of(context).textTheme.titleMedium!.fontSize,
-              ),
+              style: Theme.of(context).textTheme.titleMedium,
             ),
             Wrap(children: [
               ...filter.grades.keys
@@ -94,10 +88,7 @@ class _CategoryScreenState extends State<CategoryScreen>
             ]),
             Text(
               "Students",
-              style: TextStyle(
-                color: Theme.of(context).textTheme.titleMedium!.color,
-                fontSize: Theme.of(context).textTheme.titleMedium!.fontSize,
-              ),
+              style: Theme.of(context).textTheme.titleMedium,
             ),
             filter.students.isEmpty
                 ? Container(
