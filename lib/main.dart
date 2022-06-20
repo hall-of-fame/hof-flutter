@@ -38,13 +38,19 @@ class App extends StatelessWidget {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-  ));
+
+  initStatusBar();
   final mode = await getInitialThemeMode();
+
   runApp(ChangeNotifierProvider<ThemeProvider>(
     create: (_) => ThemeProvider(mode),
     child: const App(),
+  ));
+}
+
+void initStatusBar() {
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
   ));
 }
 
