@@ -150,16 +150,18 @@ class CategoryHeader extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: const Text("Category"),
       actions: [
-        IconButton(
-          onPressed: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const SearchPage(),
+        Consumer<StickersProvider>(builder: (context, provider, child) {
+          return IconButton(
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SearchPage(provider.stickers),
+              ),
             ),
-          ),
-          tooltip: "Search",
-          icon: const Icon(Icons.search),
-        )
+            tooltip: "Search",
+            icon: const Icon(Icons.search),
+          );
+        })
       ],
     );
   }

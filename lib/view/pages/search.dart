@@ -3,12 +3,11 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'package:hall_of_fame/common/classes.dart';
 import 'package:hall_of_fame/view/components/StickerCard.dart';
-import 'package:provider/provider.dart';
-
-import '../../common/provider.dart';
 
 class SearchPage extends StatefulWidget {
-  const SearchPage({Key? key}) : super(key: key);
+  final List<StickerElement> stickers;
+
+  const SearchPage(this.stickers, {Key? key}) : super(key: key);
 
   @override
   State<SearchPage> createState() => _SearchPageState();
@@ -20,53 +19,51 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<StickersProvider>(builder: (context, provider, child) {
-      return Scaffold(
-        appBar: AppBar(
-          title: TextField(
-            autofocus: true,
-            decoration: const InputDecoration(border: InputBorder.none),
-            controller: _controller,
-            onChanged: (value) {
-              if (value == "") {
-                setState(() => filteredStickers = []);
-                return;
+    return Scaffold(
+      appBar: AppBar(
+        title: TextField(
+          autofocus: true,
+          decoration: const InputDecoration(border: InputBorder.none),
+          controller: _controller,
+          onChanged: (value) {
+            if (value == "") {
+              setState(() => filteredStickers = []);
+              return;
+            }
+            List<StickerElement> newFilteredStickers = [];
+            for (var sticker in widget.stickers) {
+              if (value
+                  .split(" ")
+                  .every((keyword) => sticker.title.contains(keyword))) {
+                newFilteredStickers.add(sticker);
               }
-              List<StickerElement> newFilteredStickers = [];
-              for (var sticker in provider.stickers) {
-                if (value
-                    .split(" ")
-                    .every((keyword) => sticker.title.contains(keyword))) {
-                  newFilteredStickers.add(sticker);
-                }
-              }
-              setState(() => filteredStickers = newFilteredStickers);
+            }
+            setState(() => filteredStickers = newFilteredStickers);
+          },
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.cancel),
+            onPressed: () {
+              _controller.text = "";
             },
           ),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () => Navigator.pop(context),
-          ),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.cancel),
-              onPressed: () {
-                _controller.text = "";
-              },
-            ),
-          ],
+        ],
+      ),
+      body: MasonryGridView.count(
+        crossAxisCount: 2,
+        mainAxisSpacing: 4.0,
+        crossAxisSpacing: 4.0,
+        itemCount: filteredStickers.length,
+        itemBuilder: (context, index) => StickerCard(
+          sticker: filteredStickers[index],
+          showAuthor: true,
         ),
-        body: MasonryGridView.count(
-          crossAxisCount: 2,
-          mainAxisSpacing: 4.0,
-          crossAxisSpacing: 4.0,
-          itemCount: filteredStickers.length,
-          itemBuilder: (context, index) => StickerCard(
-            sticker: filteredStickers[index],
-            showAuthor: true,
-          ),
-        ),
-      );
-    });
+      ),
+    );
   }
 }
