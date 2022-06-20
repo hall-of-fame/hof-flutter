@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'view/home.dart';
@@ -12,6 +13,7 @@ class App extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: Colors.green,
         ),
+        useMaterial3: true,
       ),
       home: ChangeNotifierProvider(
         create: (context) => StickersProvider(),
@@ -22,5 +24,8 @@ class App extends StatelessWidget {
 }
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+  ));
   runApp(App());
 }
