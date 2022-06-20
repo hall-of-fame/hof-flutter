@@ -63,23 +63,24 @@ class BottomNavigator extends StatelessWidget {
   BottomNavigator({required this.switchTab, required this.currentIndex});
 
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      items: <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
+    return NavigationBar(
+      labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+      destinations: <NavigationDestination>[
+        NavigationDestination(
           icon: Icon(Icons.category),
           label: "Category",
         ),
-        BottomNavigationBarItem(
+        NavigationDestination(
           icon: Icon(Icons.leaderboard),
           label: "Ranking",
         ),
-        BottomNavigationBarItem(
+        NavigationDestination(
           icon: Icon(Icons.settings),
           label: "Settings",
         ),
       ],
-      onTap: (int index) => switchTab(index),
-      currentIndex: currentIndex,
+      onDestinationSelected: (int index) => switchTab(index),
+      selectedIndex: currentIndex,
     );
   }
 }

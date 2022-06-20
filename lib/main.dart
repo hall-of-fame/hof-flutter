@@ -5,14 +5,15 @@ import 'package:provider/provider.dart';
 import 'view/home.dart';
 import 'common/provider.dart';
 
+const Color m3BaseColor = Color(0xff6750a4);
+
 class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Hall of Fame",
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(
-          primarySwatch: Colors.green,
-        ),
+        colorSchemeSeed: m3BaseColor,
+        brightness: Brightness.light,
         useMaterial3: true,
       ),
       home: ChangeNotifierProvider(

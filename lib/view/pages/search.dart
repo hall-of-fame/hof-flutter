@@ -22,8 +22,6 @@ class _SearchPageState extends State<SearchPage> {
       appBar: AppBar(
         title: TextField(
           autofocus: true,
-          cursorColor: Colors.white,
-          style: TextStyle(color: Colors.white),
           decoration: InputDecoration(border: InputBorder.none),
           controller: _controller,
           onChanged: (value) {

@@ -25,7 +25,6 @@ class _RankingScreenState extends State<RankingScreen>
               .map(
                 (entry) => Card(
                   child: InkWell(
-                    splashColor: Colors.green.withAlpha(30),
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -51,7 +50,9 @@ class _RankingScreenState extends State<RankingScreen>
                                   margin: EdgeInsets.fromLTRB(0, 0, 12, 0),
                                   child: Text(
                                     (entry.key + 1).toString(),
-                                    style: TextStyle(fontSize: 24),
+                                    style: TextStyle(
+                                        fontSize: 24,
+                                        color: Colors.black.withOpacity(.6)),
                                   ),
                                 ),
                                 Container(
@@ -106,7 +107,9 @@ class _RankingScreenState extends State<RankingScreen>
                                   entry.value.stickersNumber.toString(),
                                   style: TextStyle(
                                     fontSize: 24,
-                                    color: Colors.green,
+                                    color: Theme.of(context)
+                                        .primaryColor
+                                        .withOpacity(0.6),
                                   ),
                                 ),
                               ),
@@ -135,7 +138,7 @@ class ProgressBar extends StatelessWidget {
     return Container(
       height: 12,
       decoration: BoxDecoration(
-        color: Colors.green.shade100,
+        color: Theme.of(context).splashColor,
         borderRadius: BorderRadius.circular(32),
       ),
       child: Flex(
@@ -145,7 +148,7 @@ class ProgressBar extends StatelessWidget {
             flex: ratio,
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.green,
+                color: Theme.of(context).primaryColor.withOpacity(.8),
                 borderRadius: BorderRadius.circular(32),
               ),
             ),
