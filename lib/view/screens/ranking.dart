@@ -147,7 +147,7 @@ class ProgressBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 12,
+      height: 4,
       decoration: BoxDecoration(
         color: Theme.of(context).splashColor,
         borderRadius: BorderRadius.circular(32),
@@ -159,7 +159,7 @@ class ProgressBar extends StatelessWidget {
             flex: ratio,
             child: Container(
               decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor.withOpacity(.8),
+                color: Theme.of(context).hintColor,
                 borderRadius: BorderRadius.circular(32),
               ),
             ),
