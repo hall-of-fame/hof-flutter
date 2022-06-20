@@ -16,11 +16,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
       children: [
         Container(
           padding: EdgeInsets.fromLTRB(24, 8, 24, 0),
+          child: Text(
+            "New Password",
+            style: TextStyle(fontSize: 22),
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.fromLTRB(24, 8, 24, 0),
           child: TextField(
-            obscureText: true,
-            decoration: InputDecoration(
-              labelText: "New Password",
-            ),
+            decoration: InputDecoration(border: OutlineInputBorder()),
+            style: TextStyle(height: 1.0),
             onChanged: (value) => setState(() {
               password = value;
             }),
@@ -35,9 +40,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onPressed: () async {
                   final prefs = await SharedPreferences.getInstance();
                   prefs.setString("password", password);
-                  Navigator.pop(context, "Ok");
+                  Navigator.pop(context, "OK");
                 },
-                child: Text("Ok"),
+                child: Text("OK"),
               ),
               TextButton(
                 onPressed: () => Navigator.pop(context, "Cancel"),
@@ -52,8 +57,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Widget build(BuildContext context) {
     return SettingsList(
-      lightTheme: SettingsThemeData(titleTextColor: Colors.green),
       platform: DevicePlatform.android,
+      lightTheme: SettingsThemeData(
+          settingsListBackground: Theme.of(context).backgroundColor),
       sections: [
         SettingsSection(
           title: Text("Basics"),
@@ -62,15 +68,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leading: Icon(Icons.password),
               title: Text("Password"),
               value: Text('API Authentication'),
-              trailing: IconButton(
-                icon: Icon(
-                  Icons.edit,
-                  color: Colors.green,
-                ),
-                onPressed: () => showDialog(
-                  context: context,
-                  builder: (context) => _passwordDialog(context),
-                ),
+              onPressed: (context) => showDialog(
+                context: context,
+                builder: (context) => _passwordDialog(context),
               ),
             )
           ],
