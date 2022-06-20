@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:settings_ui/settings_ui.dart';
+import 'package:provider/provider.dart';
 
 import 'package:hall_of_fame/view/pages/about.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../common/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -43,7 +45,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onPressed: () {
                   Navigator.pop(context, "OK");
                   SharedPreferences.getInstance().then(
-                    (prefs) => prefs.setString("password", password),
+                    (instance) => instance.setString("password", password),
                   );
                 },
                 child: const Text("OK"),
@@ -61,42 +63,72 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SettingsList(
-      platform: DevicePlatform.android,
-      lightTheme: SettingsThemeData(
-          settingsListBackground: Theme.of(context).backgroundColor),
-      sections: [
-        SettingsSection(
-          title: const Text("Basics"),
-          tiles: [
-            SettingsTile(
-              leading: const Icon(Icons.password),
-              title: const Text("Password"),
-              value: const Text('API Authentication'),
-              onPressed: (context) => showDialog(
-                context: context,
-                builder: (context) => _passwordDialog(context),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          margin: const EdgeInsets.fromLTRB(16, 16, 0, 8),
+          child: Text(
+            "Normal",
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+        ),
+        ListTile(
+          leading: const Icon(Icons.password),
+          title: const Text("Password"),
+          subtitle: const Text('API Authentication'),
+          onTap: () => showDialog(
+            context: context,
+            builder: (context) => _passwordDialog(context),
+          ),
+        ),
+        Consumer<ThemeProvider>(
+          builder: (context, theme, _) => PopupMenuButton(
+            onSelected: (ThemeMode mode) {
+              theme.mode = mode;
+            },
+            itemBuilder: (context) => [
+              const PopupMenuItem<ThemeMode>(
+                value: ThemeMode.system,
+                child: Text('System'),
+              ),
+              const PopupMenuItem<ThemeMode>(
+                value: ThemeMode.light,
+                child: Text('Light'),
+              ),
+              const PopupMenuItem<ThemeMode>(
+                value: ThemeMode.dark,
+                child: Text('Dark'),
+              ),
+            ],
+            child: const ListTile(
+              title: Text("Theme"),
+              leading: Icon(Icons.light_mode),
+            ),
+          ),
+        ),
+        Divider(
+            thickness: 1,
+            color: Theme.of(context).dividerColor.withOpacity(.3)),
+        Container(
+          margin: const EdgeInsets.fromLTRB(16, 16, 0, 8),
+          child: Text(
+            "Normal",
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+        ),
+        ListTile(
+          leading: const Icon(Icons.info),
+          title: const Text("About"),
+          onTap: () => {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const AboutScreen(),
               ),
             )
-          ],
+          },
         ),
-        SettingsSection(
-          title: const Text("Others"),
-          tiles: [
-            SettingsTile.navigation(
-              leading: const Icon(Icons.info),
-              title: const Text("About"),
-              onPressed: (context) => {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const AboutScreen(),
-                  ),
-                )
-              },
-            )
-          ],
-        )
       ],
     );
   }
