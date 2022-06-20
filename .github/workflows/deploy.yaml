@@ -40,6 +40,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
+    - run: sudo softwareupdate --install-rosetta --agree-to-license
     - uses: subosito/flutter-action@v1
       with:
         flutter-version: '3.0.2'
@@ -55,6 +56,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
+    - run: sudo softwareupdate --install-rosetta --agree-to-license
     - uses: subosito/flutter-action@v1
       with:
         flutter-version: '3.0.2'
