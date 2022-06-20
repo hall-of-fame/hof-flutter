@@ -130,20 +130,16 @@ class RankingHeader extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: const Text("Ranking"),
       actions: [
-        Consumer<StickersProvider>(builder: (context, provider, child) {
-          return IconButton(
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => SearchPage(
-                  stickers: provider.stickers,
-                ),
-              ),
+        IconButton(
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const SearchPage(),
             ),
-            tooltip: "Search",
-            icon: const Icon(Icons.search),
-          );
-        })
+          ),
+          tooltip: "Search",
+          icon: const Icon(Icons.search),
+        )
       ],
     );
   }
