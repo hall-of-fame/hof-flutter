@@ -130,9 +130,21 @@ class ThemeProvider with ChangeNotifier {
   ThemeProvider(this._mode);
 }
 
+enum NumberDisplay { stickersCount, ranking }
+
 class RankingProvider with ChangeNotifier {
   final searchController = TextEditingController();
-  bool showStickersCount = true;
+  NumberDisplay _numberDisplay = NumberDisplay.stickersCount;
+
+  NumberDisplay get numberDisplay => _numberDisplay;
+  void switchNumberDisplay(context) {
+    if (_numberDisplay == NumberDisplay.stickersCount) {
+      _numberDisplay = NumberDisplay.ranking;
+    } else {
+      _numberDisplay = NumberDisplay.stickersCount;
+    }
+    notifyListeners();
+  }
 
   RankingProvider() {
     searchController.addListener(() => notifyListeners());

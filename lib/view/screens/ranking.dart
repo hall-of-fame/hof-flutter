@@ -75,7 +75,10 @@ class _RankingScreenState extends State<RankingScreen>
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                         Text(
-                          entry.value.stickersNumber.toString(),
+                          rankingProvider.numberDisplay ==
+                                  NumberDisplay.stickersCount
+                              ? entry.value.stickersNumber.toString()
+                              : "#${entry.key + 1}",
                           style: TextStyle(
                             fontSize: Theme.of(context)
                                 .textTheme
@@ -179,6 +182,14 @@ class _RankingHeaderState extends State<RankingHeader> {
                 onPressed: () => setState(() => searchMode = true),
                 tooltip: "Search",
                 icon: const Icon(Icons.search),
+              ),
+              IconButton(
+                onPressed: () =>
+                    setState(() => provider.switchNumberDisplay(context)),
+                tooltip: "Switch Number Display",
+                icon: Icon(provider.numberDisplay == NumberDisplay.stickersCount
+                    ? Icons.photo_library
+                    : Icons.numbers),
               )
             ],
           );
