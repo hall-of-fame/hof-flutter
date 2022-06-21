@@ -113,7 +113,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         Container(
           margin: const EdgeInsets.fromLTRB(16, 16, 0, 8),
           child: Text(
-            "Normal",
+            "Others",
             style: Theme.of(context).textTheme.titleMedium,
           ),
         ),
