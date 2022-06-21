@@ -29,7 +29,10 @@ class App extends StatelessWidget {
         ),
         home: ChangeNotifierProvider(
           create: (context) => StickersProvider(),
-          child: const HomePage(),
+          child: ChangeNotifierProvider<RankingProvider>(
+            create: (_) => RankingProvider(),
+            child: const HomePage(),
+          ),
         ),
       ),
     );

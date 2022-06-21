@@ -129,3 +129,12 @@ class ThemeProvider with ChangeNotifier {
 
   ThemeProvider(this._mode);
 }
+
+class RankingProvider with ChangeNotifier {
+  final searchController = TextEditingController();
+  bool showStickersCount = true;
+
+  RankingProvider() {
+    searchController.addListener(() => notifyListeners());
+  }
+}

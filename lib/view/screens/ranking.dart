@@ -23,64 +23,78 @@ class _RankingScreenState extends State<RankingScreen>
   Widget build(BuildContext context) {
     super.build(context);
     return Consumer<StickersProvider>(
-      builder: (context, provider, child) {
-        return ListView(
-          children: provider.students
-              .asMap()
-              .entries
-              .map(
-                (entry) => ListTile(
-                  dense: false,
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => StudentPage(
-                        student: entry.value,
-                        stickers: provider.stickers
-                            .where(
-                                (sticker) => sticker.author == entry.value.name)
-                            .toList(),
-                      ),
-                    ),
-                  ),
-                  leading: SizedBox(
-                    width: 42,
-                    child: ClipOval(
-                      child: CachedNetworkImage(
-                        placeholder: (context, url) =>
-                            const CircularProgressIndicator(),
-                        imageUrl: entry.value.avatar,
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
-                      ),
-                    ),
-                  ),
-                  title: Flex(
-                    direction: Axis.horizontal,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        entry.value.name,
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      Text(
-                        entry.value.stickersNumber.toString(),
-                        style: TextStyle(
-                          fontSize:
-                              Theme.of(context).textTheme.titleLarge!.fontSize,
-                          color: Theme.of(context).hintColor,
+      builder: (context, stickersProvider, child) {
+        return Consumer<RankingProvider>(builder: (
+          context,
+          rankingProvider,
+          _,
+        ) {
+          final keyword = rankingProvider.searchController.text;
+          final entries = keyword.isEmpty
+              ? stickersProvider.students.asMap().entries
+              : stickersProvider.students
+                  .where((student) => student.name.contains(keyword))
+                  .toList()
+                  .asMap()
+                  .entries;
+          return ListView(
+            children: entries
+                .map(
+                  (entry) => ListTile(
+                    dense: false,
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => StudentPage(
+                          student: entry.value,
+                          stickers: stickersProvider.stickers
+                              .where((sticker) =>
+                                  sticker.author == entry.value.name)
+                              .toList(),
                         ),
                       ),
-                    ],
+                    ),
+                    leading: SizedBox(
+                      width: 42,
+                      child: ClipOval(
+                        child: CachedNetworkImage(
+                          placeholder: (context, url) =>
+                              const CircularProgressIndicator(),
+                          imageUrl: entry.value.avatar,
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
+                        ),
+                      ),
+                    ),
+                    title: Flex(
+                      direction: Axis.horizontal,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          entry.value.name,
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                        Text(
+                          entry.value.stickersNumber.toString(),
+                          style: TextStyle(
+                            fontSize: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .fontSize,
+                            color: Theme.of(context).hintColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                    subtitle: ProgressBar(
+                      entry.value.stickersNumber,
+                      stickersProvider.studentMaxStickers,
+                    ),
                   ),
-                  subtitle: ProgressBar(
-                    entry.value.stickersNumber,
-                    provider.studentMaxStickers,
-                  ),
-                ),
-              )
-              .toList(),
-        );
+                )
+                .toList(),
+          );
+        });
       },
     );
   }
@@ -122,30 +136,62 @@ class ProgressBar extends StatelessWidget {
   }
 }
 
-class RankingHeader extends StatelessWidget implements PreferredSizeWidget {
+class RankingHeader extends StatefulWidget implements PreferredSizeWidget {
   const RankingHeader({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      title: const Text("Ranking"),
-      actions: [
-        Consumer<StickersProvider>(builder: (context, provider, child) {
-          return IconButton(
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => SearchPage(provider.stickers),
-              ),
-            ),
-            tooltip: "Search",
-            icon: const Icon(Icons.search),
-          );
-        })
-      ],
-    );
-  }
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  State<RankingHeader> createState() => _RankingHeaderState();
+}
+
+class _RankingHeaderState extends State<RankingHeader> {
+  bool searchMode = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      child: Consumer<RankingProvider>(
+        builder: (context, provider, _) {
+          return AppBar(
+            leading: searchMode
+                ? IconButton(
+                    onPressed: () => setState(() => searchMode = false),
+                    tooltip: "Cancel",
+                    icon: const Icon(Icons.arrow_back),
+                  )
+                : null,
+            title: searchMode
+                ? TextField(
+                    autofocus: true,
+                    controller: provider.searchController,
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      hintText: "Search...",
+                    ),
+                  )
+                : provider.searchController.text.isEmpty
+                    ? const Text("Ranking")
+                    : Text("Ranking of \"${provider.searchController.text}\""),
+            actions: [
+              IconButton(
+                onPressed: () => setState(() => searchMode = true),
+                tooltip: "Search",
+                icon: const Icon(Icons.search),
+              )
+            ],
+          );
+        },
+      ),
+      onWillPop: () async {
+        if (searchMode) {
+          setState(() => searchMode = false);
+          return false;
+        } else {
+          return true;
+        }
+      },
+    );
+  }
 }
