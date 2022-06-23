@@ -24,6 +24,7 @@ class StickersProvider with ChangeNotifier {
 
   void init() async {
     _status = LoadingState.loading;
+    notifyListeners();
     _data = (await _fetchData()).data;
     _initStickers();
     _initStudents();
