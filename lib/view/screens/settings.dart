@@ -101,9 +101,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 child: Text('Dark'),
               ),
             ],
-            child: const ListTile(
-              title: Text("Theme"),
-              leading: Icon(Icons.light_mode),
+            child: ListTile(
+              title: const Text("Theme"),
+              subtitle: Text((() {
+                switch (theme.mode) {
+                  case ThemeMode.system:
+                    return "Follow System";
+                  case ThemeMode.light:
+                    return "Light Mode";
+                  case ThemeMode.dark:
+                    return "Dark Mode";
+                }
+              })()),
+              leading: const Icon(Icons.light_mode),
             ),
           ),
         ),
