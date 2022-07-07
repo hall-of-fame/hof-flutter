@@ -5,8 +5,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:hall_of_fame/common/provider.dart';
 import 'package:hall_of_fame/view/pages/student.dart';
 
-import '../pages/search.dart';
-
 class RankingScreen extends StatefulWidget {
   const RankingScreen({Key? key}) : super(key: key);
 
