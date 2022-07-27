@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import '../config.dart';
 import './enums.dart';
 import './classes.dart';
 
@@ -36,7 +37,7 @@ class StickersProvider with ChangeNotifier {
         for (var student in grade.students) {
           for (var sticker in student.stickers) {
             var element = StickerElement(
-              image: "https://zhongtai521.wang:996${sticker.url}",
+              image: "$baseURL${sticker.url}",
               avatar: "https://q1.qlogo.cn/g?b=qq&nk=${student.avatar}&s=640",
               author: student.name,
               title: sticker.desc,
@@ -78,7 +79,7 @@ class StickersProvider with ChangeNotifier {
   }
 
   Future<Response> _fetchData() async {
-    final url = Uri.parse('https://zhongtai521.wang:996/departments/');
+    final url = Uri.parse('$baseURL/departments/');
     final prefs = await SharedPreferences.getInstance();
     http.Response response;
     try {
