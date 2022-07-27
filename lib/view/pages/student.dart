@@ -33,54 +33,62 @@ class _StudentPageState extends State<StudentPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Column(
-                  children: [
-                    Container(
-                      width: 48,
-                      height: 48,
-                      margin: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-                      child: ClipOval(
-                        child: CachedNetworkImage(
-                          placeholder: (context, url) =>
-                              const CircularProgressIndicator(),
-                          imageUrl: widget.student.avatar,
-                          errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
-                        ),
-                      ),
+                Container(
+                  width: 64,
+                  height: 64,
+                  margin: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                  child: ClipOval(
+                    child: CachedNetworkImage(
+                      placeholder: (context, url) =>
+                          const CircularProgressIndicator(),
+                      imageUrl: widget.student.avatar,
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
                     ),
-                    Text(widget.student.name),
-                  ],
+                  ),
                 ),
-                Container(width: 36),
+                Container(width: 18),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "年级: 20${widget.student.grade}",
-                      style: const TextStyle(color: Colors.grey),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(width: 8),
+                        Text(
+                          widget.student.name,
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                      ],
                     ),
-                    Text(
-                      "部门: ${widget.student.department}",
-                      style: const TextStyle(color: Colors.grey),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Chip(label: Text(widget.student.department)),
+                        Container(width: 8),
+                        Chip(label: Text("20${widget.student.grade}")),
+                      ],
                     ),
                   ],
-                ),
+                )
               ],
             ),
           ),
-          MasonryGridView.count(
-            crossAxisCount: 2,
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            mainAxisSpacing: 4.0,
-            crossAxisSpacing: 4.0,
-            itemCount: widget.stickers.length,
-            itemBuilder: (context, index) => StickerCard(
-              sticker: widget.stickers[index],
-              showAuthor: false,
+          Container(
+            margin: const EdgeInsets.fromLTRB(6, 0, 6, 8),
+            child: MasonryGridView.count(
+              crossAxisCount: 2,
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              mainAxisSpacing: 4.0,
+              crossAxisSpacing: 4.0,
+              itemCount: widget.stickers.length,
+              itemBuilder: (context, index) => StickerCard(
+                sticker: widget.stickers[index],
+                showAuthor: false,
+              ),
             ),
-          ),
+          )
         ],
       ),
     );
