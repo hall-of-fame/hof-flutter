@@ -3,8 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'provider/ranking.dart';
+import 'provider/stickers.dart';
+import 'provider/theme.dart';
 import 'view/home.dart';
-import 'common/provider.dart';
 
 const Color m3BaseColor = Color(0xff6750a4);
 

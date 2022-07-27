@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'package:hall_of_fame/view/pages/about.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../common/provider.dart';
+import 'package:hall_of_fame/view/pages/about.dart';
+import 'package:hall_of_fame/provider/theme.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);

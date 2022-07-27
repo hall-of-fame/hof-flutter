@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-import 'package:hall_of_fame/common/provider.dart';
 import 'package:hall_of_fame/view/pages/student.dart';
+import 'package:hall_of_fame/provider/ranking.dart';
+import 'package:hall_of_fame/provider/stickers.dart';
 
 class RankingScreen extends StatefulWidget {
   const RankingScreen({Key? key}) : super(key: key);

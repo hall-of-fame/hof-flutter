@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-import '../config.dart';
-import './enums.dart';
-import './classes.dart';
+import '../../config.dart';
+import '../common/enums.dart';
+import '../common/classes.dart';
 
 class StickersProvider with ChangeNotifier {
   List<StickerElement> stickers = [];
@@ -100,55 +100,5 @@ class StickersProvider with ChangeNotifier {
       _status = LoadingState.failure;
       return Response();
     }
-  }
-}
-
-class ThemeProvider with ChangeNotifier {
-  ThemeMode _mode;
-
-  ThemeMode get mode {
-    return _mode;
-  }
-
-  set mode(ThemeMode newMode) {
-    _mode = newMode;
-    SharedPreferences.getInstance().then((prefs) {
-      switch (newMode) {
-        case ThemeMode.system:
-          prefs.setString('theme', 'system');
-          break;
-        case ThemeMode.light:
-          prefs.setString('theme', 'light');
-          break;
-        case ThemeMode.dark:
-          prefs.setString('theme', 'dark');
-          break;
-      }
-    });
-
-    notifyListeners();
-  }
-
-  ThemeProvider(this._mode);
-}
-
-enum NumberDisplay { stickersCount, ranking }
-
-class RankingProvider with ChangeNotifier {
-  final searchController = TextEditingController();
-  NumberDisplay _numberDisplay = NumberDisplay.stickersCount;
-
-  NumberDisplay get numberDisplay => _numberDisplay;
-  void switchNumberDisplay(context) {
-    if (_numberDisplay == NumberDisplay.stickersCount) {
-      _numberDisplay = NumberDisplay.ranking;
-    } else {
-      _numberDisplay = NumberDisplay.stickersCount;
-    }
-    notifyListeners();
-  }
-
-  RankingProvider() {
-    searchController.addListener(() => notifyListeners());
   }
 }

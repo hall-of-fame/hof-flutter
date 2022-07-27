@@ -3,10 +3,9 @@ import 'package:provider/provider.dart';
 
 import 'screens/category.dart';
 import 'screens/ranking.dart';
-
 import 'screens/settings.dart';
 
-import 'package:hall_of_fame/common/provider.dart';
+import 'package:hall_of_fame/provider/stickers.dart';
 import 'package:hall_of_fame/common/enums.dart';
 
 class HomePage extends StatefulWidget {

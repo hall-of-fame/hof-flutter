@@ -2,9 +2,9 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import 'package:hall_of_fame/common/provider.dart';
 import 'package:hall_of_fame/common/classes.dart';
 import 'package:hall_of_fame/view/components/StickerCard.dart';
+import 'package:hall_of_fame/provider/stickers.dart';
 
 import '../pages/search.dart';
 
