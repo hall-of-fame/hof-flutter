@@ -1,16 +1,9 @@
 # Hall Of Fame
 
-The HOF client (mainly for Android) written by Flutter with Material Design styles.
+The Hall of Fame client, developed with Flutter.
 
-## Getting Started
+## PWA
 
-This project is a starting point for a Flutter application.
+If you are using iOS on which you cannot install Hall of Fame easily, you can try the SPA link below. For the modern browers like Chrome/Safari, you can even install it as a PWA. 
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+https://hall-of-fame.github.io/hof-flutter
