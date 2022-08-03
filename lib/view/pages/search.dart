@@ -32,9 +32,11 @@ class _SearchPageState extends State<SearchPage> {
             }
             List<StickerElement> newFilteredStickers = [];
             for (var sticker in widget.stickers) {
-              if (value
-                  .split(" ")
-                  .every((keyword) => sticker.title.contains(keyword))) {
+              if (value.split(" ").every(
+                    (keyword) => sticker.title
+                        .toLowerCase()
+                        .contains(keyword.toLowerCase()),
+                  )) {
                 newFilteredStickers.add(sticker);
               }
             }
