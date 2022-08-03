@@ -16,11 +16,14 @@ class AboutScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(24),
-                  child: Image.asset(
-                    "assets/logo.png",
-                    width: 120,
+                ClipOval(
+                  child: Container(
+                    padding: const EdgeInsets.all(18),
+                    color: Colors.white,
+                    child: Image.asset(
+                      "assets/logo.png",
+                      width: 120,
+                    ),
                   ),
                 ),
                 Container(margin: const EdgeInsets.all(8.0)),
