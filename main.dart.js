@@ -72595,7 +72595,7 @@ A.pS.prototype={
 I(a,b){var s=null,r=A.vV(s,s,B.vW),q=A.q1(24),p=t.p
 return A.a6E(r,A.qg(A.b([A.Zk(A.qg(A.b([new A.GG(q,new A.qZ(A.atb(s,s,new A.vW("assets/logo.png",s,s)),s,s,s,120,s,s,B.n6,s,s,B.K,B.cx,!1,s),s),A.bq(s,s,s,s,s,s,B.aE,s,s),B.Oz,A.bq(s,s,s,s,s,s,B.AP,s,s),B.OC,A.bq(s,s,s,s,s,s,B.aE,s,s),B.Ow],p),B.aZ,B.FZ,B.aB),1),A.IC(s,B.BG,new A.UY(),s,B.Oy)],p),B.aZ,B.as,B.aB),s)}}
 A.UY.prototype={
-$0(){return A.aln("https://github.com/hall-of-fame/hof-flutter-md",B.Cm)},
+$0(){return A.aln("https://github.com/hall-of-fame/hof-flutter",B.Cm)},
 $S:0}
 A.oD.prototype={
 ar(){var s=A.b([],t.ei)
