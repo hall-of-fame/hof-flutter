@@ -45,7 +45,7 @@ class AboutScreen extends StatelessWidget {
             leading: const Icon(Icons.link),
             title: const Text("Github Repository"),
             onTap: () => launchUrlString(
-              "https://github.com/hall-of-fame/hof-flutter-md",
+              "https://github.com/hall-of-fame/hof-flutter",
               mode: LaunchMode.externalApplication,
             ),
           ),
