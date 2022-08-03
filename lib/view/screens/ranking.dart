@@ -36,66 +36,76 @@ class _RankingScreenState extends State<RankingScreen>
                   .toList()
                   .asMap()
                   .entries;
-          return ListView(
-            children: entries
-                .map(
-                  (entry) => ListTile(
-                    dense: false,
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => StudentPage(
-                          student: entry.value,
-                          stickers: stickersProvider.stickers
-                              .where((sticker) =>
-                                  sticker.author == entry.value.name)
-                              .toList(),
-                        ),
-                      ),
-                    ),
-                    leading: SizedBox(
-                      width: 42,
-                      child: ClipOval(
-                        child: CachedNetworkImage(
-                          placeholder: (context, url) =>
-                              const CircularProgressIndicator(),
-                          imageUrl: entry.value.avatar,
-                          errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
-                        ),
-                      ),
-                    ),
-                    title: Flex(
-                      direction: Axis.horizontal,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          entry.value.name,
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                        Text(
-                          rankingProvider.numberDisplay ==
-                                  NumberDisplay.stickersCount
-                              ? entry.value.stickersNumber.toString()
-                              : "#${entry.key + 1}",
-                          style: TextStyle(
-                            fontSize: Theme.of(context)
-                                .textTheme
-                                .titleLarge!
-                                .fontSize,
-                            color: Theme.of(context).hintColor,
+          if (entries.isEmpty) {
+            final keyword = rankingProvider.searchController.text;
+            return Center(
+              child: Text(
+                "No one's name matches \"$keyword\"",
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+            );
+          } else {
+            return ListView(
+              children: entries
+                  .map(
+                    (entry) => ListTile(
+                      dense: false,
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => StudentPage(
+                            student: entry.value,
+                            stickers: stickersProvider.stickers
+                                .where((sticker) =>
+                                    sticker.author == entry.value.name)
+                                .toList(),
                           ),
                         ),
-                      ],
+                      ),
+                      leading: SizedBox(
+                        width: 42,
+                        child: ClipOval(
+                          child: CachedNetworkImage(
+                            placeholder: (context, url) =>
+                                const CircularProgressIndicator(),
+                            imageUrl: entry.value.avatar,
+                            errorWidget: (context, url, error) =>
+                                const Icon(Icons.error),
+                          ),
+                        ),
+                      ),
+                      title: Flex(
+                        direction: Axis.horizontal,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            entry.value.name,
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          Text(
+                            rankingProvider.numberDisplay ==
+                                    NumberDisplay.stickersCount
+                                ? entry.value.stickersNumber.toString()
+                                : "#${entry.key + 1}",
+                            style: TextStyle(
+                              fontSize: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .fontSize,
+                              color: Theme.of(context).hintColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                      subtitle: ProgressBar(
+                        entry.value.stickersNumber,
+                        stickersProvider.studentMaxStickers,
+                      ),
                     ),
-                    subtitle: ProgressBar(
-                      entry.value.stickersNumber,
-                      stickersProvider.studentMaxStickers,
-                    ),
-                  ),
-                )
-                .toList(),
-          );
+                  )
+                  .toList(),
+            );
+          }
         });
       },
     );
