@@ -23,7 +23,10 @@ class _SearchPageState extends State<SearchPage> {
       appBar: AppBar(
         title: TextField(
           autofocus: true,
-          decoration: const InputDecoration(border: InputBorder.none),
+          decoration: const InputDecoration(
+            border: InputBorder.none,
+            hintText: "Search in quotations...",
+          ),
           controller: _controller,
           onChanged: (value) {
             if (value == "") {

@@ -180,7 +180,7 @@ class _RankingHeaderState extends State<RankingHeader> {
                     controller: provider.searchController,
                     decoration: const InputDecoration(
                       border: InputBorder.none,
-                      hintText: "Search...",
+                      hintText: "Search in Redrockers...",
                     ),
                   )
                 : provider.searchController.text.isEmpty
