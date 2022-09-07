@@ -48,12 +48,9 @@ class _CategoryScreenState extends State<CategoryScreen>
                   .map(
                     (department) => Container(
                       padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
-                      // TODO: Use Material Design 3 Chip
                       child: FilterChip(
-                        selectedColor: Theme.of(context).primaryColor,
-                        checkmarkColor: Colors.white,
-                        labelStyle: const TextStyle(color: Colors.white),
                         label: Text(department),
+                        side: BorderSide(color: Theme.of(context).dividerColor),
                         selected: filter.departments[department] ?? false,
                         onSelected: (selected) => setState(() {
                           filter.departments[department] = selected;
@@ -74,10 +71,8 @@ class _CategoryScreenState extends State<CategoryScreen>
                     (grade) => Container(
                       padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
                       child: FilterChip(
-                        selectedColor: Theme.of(context).primaryColor,
-                        checkmarkColor: Colors.white,
-                        labelStyle: const TextStyle(color: Colors.white),
                         label: Text(grade),
+                        side: BorderSide(color: Theme.of(context).dividerColor),
                         selected: filter.grades[grade] ?? false,
                         onSelected: (selected) => setState(() {
                           filter.grades[grade] = selected;
@@ -106,10 +101,10 @@ class _CategoryScreenState extends State<CategoryScreen>
                           (student) => Container(
                             padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
                             child: FilterChip(
-                              selectedColor: Theme.of(context).primaryColor,
-                              checkmarkColor: Colors.white,
-                              labelStyle: const TextStyle(color: Colors.white),
                               label: Text(student),
+                              side: BorderSide(
+                                color: Theme.of(context).dividerColor,
+                              ),
                               selected: filter.students[student] ?? false,
                               onSelected: (selected) => setState(
                                 () => filter.students[student] = selected,

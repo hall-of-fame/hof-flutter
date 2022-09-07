@@ -8,8 +8,6 @@ import 'provider/stickers.dart';
 import 'provider/theme.dart';
 import 'view/root.dart';
 
-const Color m3BaseColor = Color(0xff6750a4);
-
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
 
@@ -20,12 +18,10 @@ class App extends StatelessWidget {
         title: "Hall of Fame",
         themeMode: theme.mode,
         theme: ThemeData(
-          colorSchemeSeed: m3BaseColor,
           brightness: Brightness.light,
           useMaterial3: true,
         ),
         darkTheme: ThemeData(
-          colorSchemeSeed: m3BaseColor,
           brightness: Brightness.dark,
           useMaterial3: true,
         ),

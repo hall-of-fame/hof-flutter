@@ -117,8 +117,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
         ),
         Divider(
-            thickness: 1,
-            color: Theme.of(context).dividerColor.withOpacity(.3)),
+          thickness: 1,
+          color: Theme.of(context).dividerColor.withOpacity(.3),
+        ),
         Container(
           margin: const EdgeInsets.fromLTRB(16, 16, 0, 8),
           child: Text(
