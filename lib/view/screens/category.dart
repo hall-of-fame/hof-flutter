@@ -49,8 +49,25 @@ class _CategoryScreenState extends State<CategoryScreen>
                     (department) => Container(
                       padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
                       child: FilterChip(
-                        label: Text(department),
-                        side: BorderSide(color: Theme.of(context).dividerColor),
+                        label: Text(
+                          department,
+                          style: TextStyle(
+                            // TODO: 这里的判断有点儿绕，因为 Flutter 3.3 对 Chip 的
+                            // 颜色显示有点儿 bug，更新之后注意下这里看看修没修好
+                            color: (Theme.of(context).brightness ==
+                                        Brightness.light) ==
+                                    filter.departments[department]
+                                ? Colors.white
+                                : Colors.black,
+                          ),
+                        ),
+                        side: BorderSide(
+                          // TODO: 这里的判断有点儿绕，因为 Flutter 3.3 对 Chip 的颜
+                          // 色显示有点儿 bug，更新之后注意下这里看看修没修好
+                          color: filter.departments[department] ?? false
+                              ? Colors.transparent
+                              : Theme.of(context).dividerColor,
+                        ),
                         selected: filter.departments[department] ?? false,
                         onSelected: (selected) => setState(() {
                           filter.departments[department] = selected;
