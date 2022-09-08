@@ -7,7 +7,7 @@ import 'package:hall_of_fame/view/components/StickerCard.dart';
 
 class StudentPage extends StatefulWidget {
   final StudentElement student;
-  final List<StickerElement> stickers;
+  final Map<String, List<StickerElement>> stickers;
 
   const StudentPage({
     Key? key,
@@ -24,7 +24,7 @@ class _StudentPageState extends State<StudentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(widget.student.name)),
-      body: ListView(
+      body: Column(
         children: [
           Container(
             alignment: Alignment.center,
@@ -38,13 +38,14 @@ class _StudentPageState extends State<StudentPage> {
                   height: 64,
                   margin: const EdgeInsets.fromLTRB(0, 0, 0, 8),
                   child: ClipOval(
-                    child: CachedNetworkImage(
-                      placeholder: (context, url) =>
-                          const CircularProgressIndicator(),
-                      imageUrl: widget.student.avatar,
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
-                    ),
+                    child: widget.student.avatar == null
+                        ? const Icon(Icons.error)
+                        : CachedNetworkImage(
+                            placeholder: (context, url) =>
+                                const CircularProgressIndicator(),
+                            imageUrl: widget.student.avatar!,
+                            errorWidget: (context, url, error) =>
+                                const Icon(Icons.error)),
                   ),
                 ),
                 Container(width: 18),
@@ -74,21 +75,47 @@ class _StudentPageState extends State<StudentPage> {
               ],
             ),
           ),
-          Container(
-            margin: const EdgeInsets.fromLTRB(6, 0, 6, 8),
-            child: MasonryGridView.count(
-              crossAxisCount: 2,
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              mainAxisSpacing: 4.0,
-              crossAxisSpacing: 4.0,
-              itemCount: widget.stickers.length,
-              itemBuilder: (context, index) => StickerCard(
-                sticker: widget.stickers[index],
-                showAuthor: false,
+          DefaultTabController(
+            length: widget.stickers.length,
+            child: Expanded(
+              child: Column(
+                children: [
+                  TabBar(
+                    tabs: widget.stickers.entries
+                        .map((e) => Tab(text: e.key))
+                        .toList(),
+                    isScrollable: true,
+                    labelColor: Theme.of(context).textTheme.titleLarge?.color,
+                  ),
+                  Expanded(
+                    child: TabBarView(
+                      children: widget.stickers.entries
+                          .map(
+                            (e) => SingleChildScrollView(
+                              child: Container(
+                                margin: const EdgeInsets.fromLTRB(6, 8, 6, 8),
+                                child: MasonryGridView.count(
+                                  crossAxisCount: 2,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  mainAxisSpacing: 4.0,
+                                  crossAxisSpacing: 4.0,
+                                  itemCount: widget.stickers[e.key]!.length,
+                                  itemBuilder: (context, index) => StickerCard(
+                                    sticker: widget.stickers[e.key]![index],
+                                    showAuthor: false,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  )
+                ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );

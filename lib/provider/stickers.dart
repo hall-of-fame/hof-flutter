@@ -38,13 +38,13 @@ class StickersProvider with ChangeNotifier {
           for (var category in student.categories) {
             for (var sticker in category.stickers) {
               var element = StickerElement(
-                image: "$baseURL${sticker.url}",
-                avatar: student.avatar,
-                author: student.name,
-                title: sticker.desc,
-                department: department.name,
-                grade: grade.name,
-              );
+                  image: "$baseURL${sticker.url}",
+                  title: sticker.desc,
+                  author: student.name,
+                  avatar: student.avatar,
+                  department: department.name,
+                  grade: grade.name,
+                  category: category.name);
               stickers.add(element);
             }
           }
@@ -81,7 +81,7 @@ class StickersProvider with ChangeNotifier {
   }
 
   Future<Response> _fetchData() async {
-    final url = Uri.parse('$baseURL/departments/');
+    final url = Uri.parse('$baseURL/v2/departments/');
     final prefs = await SharedPreferences.getInstance();
     http.Response response;
     try {

@@ -58,7 +58,21 @@ class _RankingScreenState extends State<RankingScreen>
                             stickers: stickersProvider.stickers
                                 .where((sticker) =>
                                     sticker.author == entry.value.name)
-                                .toList(),
+                                .fold(
+                              {},
+                              (categories, sticker) {
+                                if (categories[sticker.category] == null) {
+                                  categories[sticker.category] = [];
+                                }
+                                return {
+                                  ...categories,
+                                  sticker.category: [
+                                    ...categories[sticker.category]!,
+                                    sticker
+                                  ]
+                                };
+                              },
+                            ),
                           ),
                         ),
                       ),

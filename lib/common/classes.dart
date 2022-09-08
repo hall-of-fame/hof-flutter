@@ -91,6 +91,7 @@ class StickerElement {
   final String title;
   final String department;
   final String grade;
+  final String category;
 
   StickerElement({
     required this.author,
@@ -99,5 +100,6 @@ class StickerElement {
     required this.title,
     required this.department,
     required this.grade,
+    required this.category,
   });
 }
