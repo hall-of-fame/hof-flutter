@@ -83,37 +83,53 @@ class _CategoryScreenState extends State<CategoryScreen>
                   )
                   .toList(),
             ]),
-            Text(
-              "Students",
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
             filter.students.isEmpty
-                ? Container(
-                    padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-                    child: const Text(
-                      "None is available",
-                      style: TextStyle(color: Colors.grey),
-                    ),
+                ? Column(
+                    children: [
+                      Container(height: 72),
+                      ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxWidth: MediaQuery.of(context).size.width * 0.6,
+                          maxHeight: 360,
+                        ),
+                        child: Image.asset("assets/category_placeholder.png"),
+                      ),
+                      Container(height: 12),
+                      Text(
+                        "No member matches your filter.",
+                        style: Theme.of(context).textTheme.caption,
+                      ),
+                      Container(height: 72),
+                    ],
                   )
-                : Wrap(children: [
-                    ...filter.students.keys
-                        .map(
-                          (student) => Container(
-                            padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
-                            child: FilterChip(
-                              label: Text(student),
-                              side: BorderSide(
-                                color: Theme.of(context).dividerColor,
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Students",
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      Wrap(children: [
+                        ...filter.students.keys
+                            .map(
+                              (student) => Container(
+                                padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
+                                child: FilterChip(
+                                  label: Text(student),
+                                  side: BorderSide(
+                                    color: Theme.of(context).dividerColor,
+                                  ),
+                                  selected: filter.students[student] ?? false,
+                                  onSelected: (selected) => setState(
+                                    () => filter.students[student] = selected,
+                                  ),
+                                ),
                               ),
-                              selected: filter.students[student] ?? false,
-                              onSelected: (selected) => setState(
-                                () => filter.students[student] = selected,
-                              ),
-                            ),
-                          ),
-                        )
-                        .toList(),
-                  ]),
+                            )
+                            .toList(),
+                      ]),
+                    ],
+                  ),
             MasonryGridView.count(
               crossAxisCount: 2,
               physics: const NeverScrollableScrollPhysics(),
