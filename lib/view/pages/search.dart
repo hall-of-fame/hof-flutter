@@ -59,16 +59,23 @@ class _SearchPageState extends State<SearchPage> {
           ),
         ],
       ),
-      body: MasonryGridView.count(
-        crossAxisCount: 2,
-        mainAxisSpacing: 4.0,
-        crossAxisSpacing: 4.0,
-        itemCount: filteredStickers.length,
-        itemBuilder: (context, index) => StickerCard(
-          sticker: filteredStickers[index],
-          showAuthor: true,
-        ),
-      ),
+      body: filteredStickers.isEmpty
+          ? Center(
+              child: Image.asset(
+                "assets/search_placeholder.png",
+                width: MediaQuery.of(context).size.width * 0.5,
+              ),
+            )
+          : MasonryGridView.count(
+              crossAxisCount: 2,
+              mainAxisSpacing: 4.0,
+              crossAxisSpacing: 4.0,
+              itemCount: filteredStickers.length,
+              itemBuilder: (context, index) => StickerCard(
+                sticker: filteredStickers[index],
+                showAuthor: true,
+              ),
+            ),
     );
   }
 }
