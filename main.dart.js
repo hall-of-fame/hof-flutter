@@ -75331,7 +75331,7 @@ $3(a,b,c){return B.c5},
 $S:60}
 A.q8.prototype={
 H(a){var s=null,r=t.p
-return A.a8i(A.vC(s,s,B.x_),A.iQ(A.a([A.wU(A.iQ(A.a([A.Xl(A.bp(s,A.ap8("assets/logo.png",120),B.k,s,s,s,s,B.BT,s)),A.bp(s,s,s,s,s,s,B.aB,s,s),B.PG,A.bp(s,s,s,s,s,s,B.BX,s,s),B.Pu,A.bp(s,s,s,s,s,s,B.aB,s,s),B.Pr],r),B.aA,B.Hd,B.ag),1),A.Iw(s,B.D4,new A.Vv(),s,B.Pq)],r),B.aA,B.a9,B.ag),s)}}
+return A.a8i(A.vC(s,s,B.x_),A.iQ(A.a([A.wU(A.iQ(A.a([A.Xl(A.bp(s,A.ap8("assets/logo.png",120),B.k,s,s,s,s,B.BT,s)),A.bp(s,s,s,s,s,s,B.aB,s,s),B.PG,A.bp(s,s,s,s,s,s,B.BX,s,s),B.PE,A.bp(s,s,s,s,s,s,B.aB,s,s),B.Pr],r),B.aA,B.Hd,B.ag),1),A.Iw(s,B.D4,new A.Vv(),s,B.Pq)],r),B.aA,B.a9,B.ag),s)}}
 A.Vv.prototype={
 $0(){return A.anG("https://github.com/hall-of-fame/hof-flutter",B.DJ)},
 $S:0}
@@ -75435,7 +75435,7 @@ A.ado.prototype={
 $3(a,b,c){var s=null
 switch(b.d.a){case 0:return B.mA
 case 1:return this.a.c
-case 2:return A.k5(A.iQ(A.a([B.PA,A.bp(s,A.cK(b.e,s,s,s,s,s,s,s),s,s,s,s,s,B.BY,s),new A.Jd(b.gabR(),s,s,s,s,B.x,s,!1,s,B.Pp,s)],t.p),B.aA,B.a9,B.dv),s,s)}},
+case 2:return A.k5(A.iQ(A.a([B.Pz,A.bp(s,A.cK(b.e,s,s,s,s,s,s,s),s,s,s,s,s,B.BY,s),new A.Jd(b.gabR(),s,s,s,s,B.x,s,!1,s,B.Pp,s)],t.p),B.aA,B.a9,B.dv),s,s)}},
 $C:"$3",
 $R:3,
 $S:468}
@@ -75646,7 +75646,7 @@ A.aiF.prototype={
 $3(a,b,c){var s,r=null,q=this.a,p=q.d,o=p?A.lS(r,!0,B.nF,r,new A.aiC(q),B.aB,r,"Cancel"):r
 if(p)p=A.apR(!0,b.a,B.Di,r,r)
 else{p=b.a.a.a
-p=p.length===0?B.Py:A.cK('Ranking of "'+p+'"',r,r,r,r,r,r,r)}s=A.lS(r,!0,B.hA,r,new A.aiD(q),B.aB,r,"Search")
+p=p.length===0?B.Px:A.cK('Ranking of "'+p+'"',r,r,r,r,r,r,r)}s=A.lS(r,!0,B.hA,r,new A.aiD(q),B.aB,r,"Search")
 return A.vC(A.a([s,A.lS(r,!0,A.ata(b.b===B.dC?B.CM:B.CS),r,new A.aiE(q,b,a),B.aB,r,"Switch Number Display")],t.p),o,p)},
 $C:"$3",
 $R:3,
@@ -75700,8 +75700,8 @@ A.zU.prototype={
 ag(){return new A.S2(B.i)}}
 A.S2.prototype={
 a44(a){var s=null,r=t.p
-return new A.tj(A.a([A.bp(s,B.PB,s,s,s,s,s,B.nd,s),A.bp(s,A.apR(!1,s,B.Dk,new A.akb(this),B.N4),s,s,s,s,s,B.nd,s),A.bp(s,A.oQ(A.a([A.auT(B.Pv,new A.akc(this,a),s),A.auT(B.PD,new A.akd(a),s)],r),B.aA,B.a9,B.ag,B.Z),s,s,s,s,s,B.BV,s)],r),s)},
-H(a){var s=null,r=A.bp(s,A.cK("Normal",s,s,s,s,A.P(a).RG.w,s,s),s,s,s,s,B.nb,s,s),q=A.Iw(s,B.CY,new A.akj(this,a),B.Pw,B.PF),p=A.nH(new A.akk(),t.eC),o=A.P(a).cx.a
+return new A.tj(A.a([A.bp(s,B.PA,s,s,s,s,s,B.nd,s),A.bp(s,A.apR(!1,s,B.Dk,new A.akb(this),B.N4),s,s,s,s,s,B.nd,s),A.bp(s,A.oQ(A.a([A.auT(B.Pu,new A.akc(this,a),s),A.auT(B.PC,new A.akd(a),s)],r),B.aA,B.a9,B.ag,B.Z),s,s,s,s,s,B.BV,s)],r),s)},
+H(a){var s=null,r=A.bp(s,A.cK("Normal",s,s,s,s,A.P(a).RG.w,s,s),s,s,s,s,B.nb,s,s),q=A.Iw(s,B.CY,new A.akj(this,a),B.Pv,B.PF),p=A.nH(new A.akk(),t.eC),o=A.P(a).cx.a
 return A.iQ(A.a([r,q,p,new A.GT(1,A.a9(B.d.be(76.5),o>>>16&255,o>>>8&255,o&255),s),A.bp(s,A.cK("Others",s,s,s,s,A.P(a).RG.w,s,s),s,s,s,s,B.nb,s,s),A.Iw(s,B.CZ,new A.akl(a),s,B.x_)],t.p),B.bJ,B.a9,B.ag)}}
 A.akb.prototype={
 $1(a){var s=this.a
@@ -75732,7 +75732,7 @@ $1(a){return this.a.a44(a)},
 $S:482}
 A.akk.prototype={
 $3(a,b,c){var s=null
-return new A.mm(new A.akf(),new A.akg(b),A.Iw(s,B.D1,s,A.cK(new A.akh(b).$0(),s,s,s,s,s,s,s),B.PC),s,t.wh)},
+return new A.mm(new A.akf(),new A.akg(b),A.Iw(s,B.D1,s,A.cK(new A.akh(b).$0(),s,s,s,s,s,s,s),B.PB),s,t.wh)},
 $C:"$3",
 $R:3,
 $S:483}
@@ -81829,14 +81829,14 @@ B.cK=new A.rN(0,"none")
 B.IB=new A.rN(1,"scroll")
 B.IC=new A.rN(2,"unknown")
 B.lw=new A.eJ(2,"dark")
-B.Px=new A.cU("Dark",null,null,null,null,null,null,null,null,null)
-B.ID=new A.jf(B.lw,B.Px,null,t.Id)
+B.Pw=new A.cU("Dark",null,null,null,null,null,null,null,null,null)
+B.ID=new A.jf(B.lw,B.Pw,null,t.Id)
 B.fv=new A.eJ(0,"system")
-B.PE=new A.cU("System",null,null,null,null,null,null,null,null,null)
-B.IE=new A.jf(B.fv,B.PE,null,t.Id)
+B.PD=new A.cU("System",null,null,null,null,null,null,null,null,null)
+B.IE=new A.jf(B.fv,B.PD,null,t.Id)
 B.x0=new A.eJ(1,"light")
-B.Pz=new A.cU("Light",null,null,null,null,null,null,null,null,null)
-B.IF=new A.jf(B.x0,B.Pz,null,t.Id)
+B.Py=new A.cU("Light",null,null,null,null,null,null,null,null,null)
+B.IF=new A.jf(B.x0,B.Py,null,t.Id)
 B.SR=new A.JS(0,"over")
 B.IG=new A.yR(null,null,null,null,null,null)
 B.IH=new A.JZ(2e5)
@@ -82431,16 +82431,16 @@ B.Pq=new A.cU("Github Repository",null,null,null,null,null,null,null,null,null)
 B.Pr=new A.cU("Made with Flutter, by Redrock",null,B.lv,null,null,null,null,null,null,null)
 B.Ps=new A.cU("Settings",null,null,null,null,null,null,null,null,null)
 B.Pt=new A.cU("Category",null,null,null,null,null,null,null,null,null)
-B.Pu=new A.cU("Version: 0.2.0",null,B.lv,null,null,null,null,null,null,null)
-B.Pv=new A.cU("OK",null,null,null,null,null,null,null,null,null)
-B.Pw=new A.cU("API Authentication",null,null,null,null,null,null,null,null,null)
-B.Py=new A.cU("Ranking",null,null,null,null,null,null,null,null,null)
-B.PA=new A.cU("FAILED",null,null,null,null,null,null,null,null,null)
+B.Pu=new A.cU("OK",null,null,null,null,null,null,null,null,null)
+B.Pv=new A.cU("API Authentication",null,null,null,null,null,null,null,null,null)
+B.Px=new A.cU("Ranking",null,null,null,null,null,null,null,null,null)
+B.Pz=new A.cU("FAILED",null,null,null,null,null,null,null,null,null)
 B.N6=new A.n(!0,null,null,null,null,null,22,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.PB=new A.cU("New Password",null,B.N6,null,null,null,null,null,null,null)
-B.PC=new A.cU("Theme",null,null,null,null,null,null,null,null,null)
-B.PD=new A.cU("Cancel",null,null,null,null,null,null,null,null,null)
+B.PA=new A.cU("New Password",null,B.N6,null,null,null,null,null,null,null)
+B.PB=new A.cU("Theme",null,null,null,null,null,null,null,null,null)
+B.PC=new A.cU("Cancel",null,null,null,null,null,null,null,null,null)
 B.x_=new A.cU("About",null,null,null,null,null,null,null,null,null)
+B.PE=new A.cU("Version: 0.3.0",null,B.lv,null,null,null,null,null,null,null)
 B.PF=new A.cU("Password",null,null,null,null,null,null,null,null,null)
 B.N7=new A.n(!0,null,null,null,null,null,24,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.PG=new A.cU("Hall of Fame",null,B.N7,null,null,null,null,null,null,null)
