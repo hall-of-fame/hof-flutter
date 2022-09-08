@@ -55,20 +55,22 @@ class StickerCard extends StatelessWidget {
                     child: Flex(
                       direction: Axis.horizontal,
                       children: [
-                        Container(
-                          width: 24,
-                          height: 24,
-                          margin: const EdgeInsets.fromLTRB(0, 0, 12, 0),
-                          child: ClipOval(
-                            child: CachedNetworkImage(
-                              placeholder: (context, url) =>
-                                  const CircularProgressIndicator(),
-                              imageUrl: sticker.avatar,
-                              errorWidget: (context, url, error) =>
-                                  const Icon(Icons.error),
-                            ),
-                          ),
-                        ),
+                        sticker.avatar == null
+                            ? const Icon(Icons.error)
+                            : Container(
+                                width: 24,
+                                height: 24,
+                                margin: const EdgeInsets.fromLTRB(0, 0, 12, 0),
+                                child: ClipOval(
+                                  child: CachedNetworkImage(
+                                    placeholder: (context, url) =>
+                                        const CircularProgressIndicator(),
+                                    imageUrl: sticker.avatar!,
+                                    errorWidget: (context, url, error) =>
+                                        const Icon(Icons.error),
+                                  ),
+                                ),
+                              ),
                         Text(
                           sticker.author,
                           style: const TextStyle(color: Colors.grey),

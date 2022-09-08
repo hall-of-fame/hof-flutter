@@ -33,13 +33,25 @@ class Grade {
 
 class Student {
   final String name;
-  final String avatar;
-  final List<Sticker> stickers;
+  final String? avatar;
+  final List<Category> categories;
 
-  Student(this.name, this.avatar, this.stickers);
+  Student(this.name, this.avatar, this.categories);
   Student.fromJson(Map<String, dynamic> json)
       : name = json['name'],
         avatar = json['avatar'],
+        categories = (json['categories'] as List)
+            .map((category) => Category.fromJson(category))
+            .toList();
+}
+
+class Category {
+  final String name;
+  final List<Sticker> stickers;
+
+  Category(this.name, this.stickers);
+  Category.fromJson(Map<String, dynamic> json)
+      : name = json['name'],
         stickers = (json['stickers'] as List)
             .map((sticker) => Sticker.fromJson(sticker))
             .toList();
@@ -58,7 +70,7 @@ class Sticker {
 
 class StudentElement {
   final String name;
-  final String avatar;
+  final String? avatar;
   final String department;
   final String grade;
   final int stickersNumber;
@@ -75,7 +87,7 @@ class StudentElement {
 class StickerElement {
   final String author;
   final String image;
-  final String avatar;
+  final String? avatar;
   final String title;
   final String department;
   final String grade;

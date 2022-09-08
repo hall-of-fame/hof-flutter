@@ -35,16 +35,18 @@ class StickersProvider with ChangeNotifier {
     for (var department in _data) {
       for (var grade in department.grades) {
         for (var student in grade.students) {
-          for (var sticker in student.stickers) {
-            var element = StickerElement(
-              image: "$baseURL${sticker.url}",
-              avatar: "https://q1.qlogo.cn/g?b=qq&nk=${student.avatar}&s=640",
-              author: student.name,
-              title: sticker.desc,
-              department: department.name,
-              grade: grade.name,
-            );
-            stickers.add(element);
+          for (var category in student.categories) {
+            for (var sticker in category.stickers) {
+              var element = StickerElement(
+                image: "$baseURL${sticker.url}",
+                avatar: student.avatar,
+                author: student.name,
+                title: sticker.desc,
+                department: department.name,
+                grade: grade.name,
+              );
+              stickers.add(element);
+            }
           }
         }
       }
@@ -58,7 +60,7 @@ class StickersProvider with ChangeNotifier {
         for (var student in grade.students) {
           var element = StudentElement(
             name: student.name,
-            avatar: "https://q1.qlogo.cn/g?b=qq&nk=${student.avatar}&s=640",
+            avatar: student.avatar,
             department: department.name,
             grade: grade.name,
             stickersNumber: stickers

@@ -82,6 +82,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
         ),
         Consumer<ThemeProvider>(
+          // TODO: Set the pop-up menu right to trail
           builder: (context, theme, _) => PopupMenuButton(
             onSelected: (ThemeMode mode) {
               theme.mode = mode;

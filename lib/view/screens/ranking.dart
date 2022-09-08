@@ -65,13 +65,15 @@ class _RankingScreenState extends State<RankingScreen>
                       leading: SizedBox(
                         width: 42,
                         child: ClipOval(
-                          child: CachedNetworkImage(
-                            placeholder: (context, url) =>
-                                const CircularProgressIndicator(),
-                            imageUrl: entry.value.avatar,
-                            errorWidget: (context, url, error) =>
-                                const Icon(Icons.error),
-                          ),
+                          child: entry.value.avatar == null
+                              ? const Icon(Icons.error)
+                              : CachedNetworkImage(
+                                  placeholder: (context, url) =>
+                                      const CircularProgressIndicator(),
+                                  imageUrl: entry.value.avatar!,
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error),
+                                ),
                         ),
                       ),
                       title: Flex(
