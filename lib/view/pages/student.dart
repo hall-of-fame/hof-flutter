@@ -26,14 +26,22 @@ class _StudentPageState extends State<StudentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(widget.student.name)),
-      body: Column(
+      body: Flex(
+        direction: MediaQuery.of(context).orientation == Orientation.portrait
+            ? Axis.vertical
+            : Axis.horizontal,
         children: [
           Container(
             alignment: Alignment.center,
             margin: const EdgeInsets.all(24),
-            child: Row(
+            child: Flex(
+              direction:
+                  MediaQuery.of(context).orientation == Orientation.portrait
+                      ? Axis.horizontal
+                      : Axis.vertical,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
                   width: 64,
@@ -50,9 +58,13 @@ class _StudentPageState extends State<StudentPage> {
                                 const Icon(Icons.error)),
                   ),
                 ),
-                Container(width: 18),
+                const SizedBox(width: 18),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment:
+                      MediaQuery.of(context).orientation == Orientation.portrait
+                          ? CrossAxisAlignment.start
+                          : CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
