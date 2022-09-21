@@ -5,6 +5,8 @@ import 'screens/category.dart';
 import 'screens/ranking.dart';
 import 'screens/settings.dart';
 
+import 'components/navigators.dart';
+
 import 'package:hall_of_fame/provider/stickers.dart';
 import 'package:hall_of_fame/common/enums.dart';
 
@@ -27,57 +29,34 @@ class _HomePageState extends State<HomePage> {
         RankingHeader(),
         SettingsHeader(),
       ][_pageIndex],
-      body: PageView(
-        controller: _pageController,
-        onPageChanged: (index) => setState(() => _pageIndex = index),
-        children: const <Widget>[
-          WrappedScreen(CategoryScreen()),
-          WrappedScreen(RankingScreen()),
-          SettingsScreen(),
+      body: Row(
+        children: [
+          MediaQuery.of(context).orientation == Orientation.landscape
+              ? RailNavigator(
+                  switchTab: (index) => _pageController.jumpToPage(index),
+                  currentIndex: _pageIndex,
+                )
+              : Container(),
+          Expanded(
+            child: PageView(
+              controller: _pageController,
+              onPageChanged: (index) => setState(() => _pageIndex = index),
+              children: const <Widget>[
+                WrappedScreen(CategoryScreen()),
+                WrappedScreen(RankingScreen()),
+                SettingsScreen(),
+              ],
+            ),
+          )
         ],
       ),
-      bottomNavigationBar: BottomNavigator(
-        switchTab: (index) => _pageController.jumpToPage(index),
-        currentIndex: _pageIndex,
-      ),
-    );
-  }
-}
-
-class BottomNavigator extends StatelessWidget {
-  final void Function(int) switchTab;
-  final int currentIndex;
-
-  const BottomNavigator(
-      {Key? key, required this.switchTab, required this.currentIndex})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return NavigationBar(
-      labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-      destinations: <NavigationDestination>[
-        NavigationDestination(
-          icon: currentIndex == 0
-              ? const Icon(Icons.category)
-              : const Icon(Icons.category_outlined),
-          label: "Category",
-        ),
-        NavigationDestination(
-          icon: currentIndex == 1
-              ? const Icon(Icons.leaderboard)
-              : const Icon(Icons.leaderboard_outlined),
-          label: "Ranking",
-        ),
-        NavigationDestination(
-          icon: currentIndex == 2
-              ? const Icon(Icons.settings)
-              : const Icon(Icons.settings_outlined),
-          label: "Settings",
-        ),
-      ],
-      onDestinationSelected: (int index) => switchTab(index),
-      selectedIndex: currentIndex,
+      bottomNavigationBar:
+          MediaQuery.of(context).orientation == Orientation.portrait
+              ? BottomNavigator(
+                  switchTab: (index) => _pageController.jumpToPage(index),
+                  currentIndex: _pageIndex,
+                )
+              : null,
     );
   }
 }
