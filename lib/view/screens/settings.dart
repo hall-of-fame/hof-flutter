@@ -62,85 +62,87 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          margin: const EdgeInsets.fromLTRB(16, 16, 0, 8),
-          child: Text(
-            "Normal",
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-        ),
-        ListTile(
-          leading: const Icon(Icons.password),
-          title: const Text("Password"),
-          subtitle: const Text('API Authentication'),
-          onTap: () => showDialog(
-            context: context,
-            builder: (context) => _passwordDialog(context),
-          ),
-        ),
-        Consumer<ThemeProvider>(
-          // TODO: Set the pop-up menu right to trail
-          builder: (context, theme, _) => PopupMenuButton(
-            onSelected: (ThemeMode mode) {
-              theme.mode = mode;
-            },
-            itemBuilder: (context) => [
-              const PopupMenuItem<ThemeMode>(
-                value: ThemeMode.system,
-                child: Text('System'),
-              ),
-              const PopupMenuItem<ThemeMode>(
-                value: ThemeMode.light,
-                child: Text('Light'),
-              ),
-              const PopupMenuItem<ThemeMode>(
-                value: ThemeMode.dark,
-                child: Text('Dark'),
-              ),
-            ],
-            child: ListTile(
-              title: const Text("Theme"),
-              subtitle: Text((() {
-                switch (theme.mode) {
-                  case ThemeMode.system:
-                    return "Follow System";
-                  case ThemeMode.light:
-                    return "Light Mode";
-                  case ThemeMode.dark:
-                    return "Dark Mode";
-                }
-              })()),
-              leading: const Icon(Icons.light_mode),
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: const EdgeInsets.fromLTRB(16, 16, 0, 8),
+            child: Text(
+              "Normal",
+              style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
-        ),
-        Divider(
-          thickness: 1,
-          color: Theme.of(context).dividerColor.withOpacity(.3),
-        ),
-        Container(
-          margin: const EdgeInsets.fromLTRB(16, 16, 0, 8),
-          child: Text(
-            "Others",
-            style: Theme.of(context).textTheme.titleMedium,
+          ListTile(
+            leading: const Icon(Icons.password),
+            title: const Text("Password"),
+            subtitle: const Text('API Authentication'),
+            onTap: () => showDialog(
+              context: context,
+              builder: (context) => _passwordDialog(context),
+            ),
           ),
-        ),
-        ListTile(
-          leading: const Icon(Icons.info),
-          title: const Text("About"),
-          onTap: () => {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const AboutScreen(),
+          Consumer<ThemeProvider>(
+            // TODO: Set the pop-up menu right to trail
+            builder: (context, theme, _) => PopupMenuButton(
+              onSelected: (ThemeMode mode) {
+                theme.mode = mode;
+              },
+              itemBuilder: (context) => [
+                const PopupMenuItem<ThemeMode>(
+                  value: ThemeMode.system,
+                  child: Text('System'),
+                ),
+                const PopupMenuItem<ThemeMode>(
+                  value: ThemeMode.light,
+                  child: Text('Light'),
+                ),
+                const PopupMenuItem<ThemeMode>(
+                  value: ThemeMode.dark,
+                  child: Text('Dark'),
+                ),
+              ],
+              child: ListTile(
+                title: const Text("Theme"),
+                subtitle: Text((() {
+                  switch (theme.mode) {
+                    case ThemeMode.system:
+                      return "Follow System";
+                    case ThemeMode.light:
+                      return "Light Mode";
+                    case ThemeMode.dark:
+                      return "Dark Mode";
+                  }
+                })()),
+                leading: const Icon(Icons.light_mode),
               ),
-            )
-          },
-        ),
-      ],
+            ),
+          ),
+          Divider(
+            thickness: 1,
+            color: Theme.of(context).dividerColor.withOpacity(.3),
+          ),
+          Container(
+            margin: const EdgeInsets.fromLTRB(16, 16, 0, 8),
+            child: Text(
+              "Others",
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.info),
+            title: const Text("About"),
+            onTap: () => {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const AboutScreen(),
+                ),
+              )
+            },
+          ),
+        ],
+      ),
     );
   }
 }
