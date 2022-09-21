@@ -12,23 +12,20 @@ class BottomNavigator extends StatelessWidget {
   Widget build(BuildContext context) {
     return NavigationBar(
       labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-      destinations: <NavigationDestination>[
+      destinations: const <NavigationDestination>[
         NavigationDestination(
-          icon: currentIndex == 0
-              ? const Icon(Icons.category)
-              : const Icon(Icons.category_outlined),
+          icon: Icon(Icons.category_outlined),
+          selectedIcon: Icon(Icons.category),
           label: "Category",
         ),
         NavigationDestination(
-          icon: currentIndex == 1
-              ? const Icon(Icons.leaderboard)
-              : const Icon(Icons.leaderboard_outlined),
+          icon: Icon(Icons.leaderboard_outlined),
+          selectedIcon: Icon(Icons.leaderboard),
           label: "Ranking",
         ),
         NavigationDestination(
-          icon: currentIndex == 2
-              ? const Icon(Icons.settings)
-              : const Icon(Icons.settings_outlined),
+          icon: Icon(Icons.settings_outlined),
+          selectedIcon: Icon(Icons.settings),
           label: "Settings",
         ),
       ],
