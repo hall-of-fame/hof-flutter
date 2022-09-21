@@ -5,6 +5,8 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:hall_of_fame/common/classes.dart';
 import 'package:hall_of_fame/view/components/sticker_card.dart';
 
+import '../../utils/utils.dart';
+
 class StudentPage extends StatefulWidget {
   final StudentElement student;
   final Map<String, List<StickerElement>> stickers;
@@ -95,7 +97,7 @@ class _StudentPageState extends State<StudentPage> {
                               child: Container(
                                 margin: const EdgeInsets.fromLTRB(6, 8, 6, 8),
                                 child: MasonryGridView.count(
-                                  crossAxisCount: 2,
+                                  crossAxisCount: getCrossAxisCount(context),
                                   physics: const NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
                                   mainAxisSpacing: 4.0,

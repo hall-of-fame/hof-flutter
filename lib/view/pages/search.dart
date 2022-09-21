@@ -4,6 +4,8 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:hall_of_fame/common/classes.dart';
 import 'package:hall_of_fame/view/components/sticker_card.dart';
 
+import '../../utils/utils.dart';
+
 class SearchPage extends StatefulWidget {
   final List<StickerElement> stickers;
 
@@ -67,7 +69,7 @@ class _SearchPageState extends State<SearchPage> {
               ),
             )
           : MasonryGridView.count(
-              crossAxisCount: 2,
+              crossAxisCount: getCrossAxisCount(context),
               mainAxisSpacing: 4.0,
               crossAxisSpacing: 4.0,
               itemCount: filteredStickers.length,

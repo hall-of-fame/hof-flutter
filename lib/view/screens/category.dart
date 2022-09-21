@@ -6,6 +6,7 @@ import 'package:hall_of_fame/common/classes.dart';
 import 'package:hall_of_fame/view/components/sticker_card.dart';
 import 'package:hall_of_fame/provider/stickers.dart';
 
+import '../../utils/utils.dart';
 import '../pages/search.dart';
 
 class CategoryScreen extends StatefulWidget {
@@ -182,7 +183,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                     ],
                   ),
             MasonryGridView.count(
-              crossAxisCount: 2,
+              crossAxisCount: getCrossAxisCount(context),
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               mainAxisSpacing: 4.0,
