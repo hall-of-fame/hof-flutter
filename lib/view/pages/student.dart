@@ -3,7 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'package:hall_of_fame/common/classes.dart';
-import 'package:hall_of_fame/view/components/StickerCard.dart';
+import 'package:hall_of_fame/view/components/sticker_card.dart';
 
 class StudentPage extends StatefulWidget {
   final StudentElement student;
