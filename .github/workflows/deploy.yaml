@@ -79,7 +79,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: windows
-          path: build/windows/
+          path: build/windows/runner/Release
           
   web:
     runs-on: ubuntu-latest
