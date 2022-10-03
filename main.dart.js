@@ -75666,7 +75666,7 @@ for(m=n.b,l=m.length,n=n.a,k=0;k<m.length;m.length===l||(0,A.F)(m),++k){j=m[k]
 for(i=j.b,h=i.length,g=j.a,f=0;f<i.length;i.length===h||(0,A.F)(i),++f){e=i[f]
 for(d=e.c,c=d.length,b=e.a,a=e.b,a0=0;a0<d.length;d.length===c||(0,A.F)(d),++a0){a1=d[a0]
 for(a2=a1.b,a3=a2.length,a4=a1.a,a5=0;a5<a2.length;a2.length===a3||(0,A.F)(a2),++a5){a6=a2[a5]
-o.push(new A.ee(b,"https://zhongtai521.wang:996"+a6.b,a,a6.a,n,g,a4))}}}}}q.ar()
+o.push(new A.ee(b,"http://zhongtai521.wang:996"+a6.b,a,a6.a,n,g,a4))}}}}}q.ar()
 return A.U(null,r)}})
 return A.V($async$Ab,r)},
 Ac(){var s=0,r=A.W(t.z),q=this,p,o,n,m,l,k,j,i,h,g,f,e,d,c,b
@@ -75682,7 +75682,7 @@ return A.U(null,r)}})
 return A.V($async$Ac,r)},
 q4(){var s=0,r=A.W(t.Wd),q,p=2,o,n=this,m,l,k,j,i,h,g,f
 var $async$q4=A.S(function(a,b){if(a===1){o=b
-s=p}while(true)switch(s){case 0:i=A.jF("https://zhongtai521.wang:996/v2/departments/",0,null)
+s=p}while(true)switch(s){case 0:i=A.jF("http://zhongtai521.wang:996/v2/departments/",0,null)
 s=3
 return A.Q(A.tm(),$async$q4)
 case 3:h=b
