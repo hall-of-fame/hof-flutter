@@ -4,8 +4,10 @@ The Hall of Fame client, developed with Flutter.
 
 ## Preview
 
-<img src="./docs/light.png" width="50%" height="50%" alt="Light Mode" align="left">
-<img src="./docs/dark.png" width="50%" height="50%" alt="Dark Mode" align="right">
+<div align=center>
+<img src="./docs/light.png" width="40%" alt="Light Mode">
+<img src="./docs/dark.png" width="40%" alt="Dark Mode">
+</div>
 
 ## PWA
 
