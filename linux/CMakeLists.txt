@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(runner LANGUAGES CXX)
 
 set(BINARY_NAME "hall_of_fame")
-set(APPLICATION_ID "com.example.hall_of_fame")
+set(APPLICATION_ID "com.redrock.hall_of_fame")
 
 cmake_policy(SET CMP0063 NEW)
 
