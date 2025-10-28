@@ -50,25 +50,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                     (department) => Container(
                       padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
                       child: FilterChip(
-                        label: Text(
-                          department,
-                          style: TextStyle(
-                            // TODO: 这里的判断有点儿绕，因为 Flutter 3.3 对 Chip 的
-                            // 颜色显示有点儿 bug，更新之后注意下这里看看修没修好
-                            color: (Theme.of(context).brightness ==
-                                        Brightness.light) ==
-                                    filter.departments[department]
-                                ? Colors.white
-                                : Colors.black,
-                          ),
-                        ),
-                        side: BorderSide(
-                          // TODO: 这里的判断有点儿绕，因为 Flutter 3.3 对 Chip 的颜
-                          // 色显示有点儿 bug，更新之后注意下这里看看修没修好
-                          color: filter.departments[department] ?? false
-                              ? Colors.transparent
-                              : Theme.of(context).dividerColor,
-                        ),
+                        label: Text(department),
                         selected: filter.departments[department] ?? false,
                         onSelected: (selected) => setState(() {
                           filter.departments[department] = selected;
@@ -89,25 +71,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                     (grade) => Container(
                       padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
                       child: FilterChip(
-                        label: Text(
-                          grade,
-                          style: TextStyle(
-                            // TODO: 这里的判断有点儿绕，因为 Flutter 3.3 对 Chip 的
-                            // 颜色显示有点儿 bug，更新之后注意下这里看看修没修好
-                            color: (Theme.of(context).brightness ==
-                                        Brightness.light) ==
-                                    filter.grades[grade]
-                                ? Colors.white
-                                : Colors.black,
-                          ),
-                        ),
-                        side: BorderSide(
-                          // TODO: 这里的判断有点儿绕，因为 Flutter 3.3 对 Chip 的
-                          // 颜色显示有点儿 bug，更新之后注意下这里看看修没修好
-                          color: filter.grades[grade] ?? false
-                              ? Colors.transparent
-                              : Theme.of(context).dividerColor,
-                        ),
+                        label: Text(grade),
                         selected: filter.grades[grade] ?? false,
                         onSelected: (selected) => setState(() {
                           filter.grades[grade] = selected;
@@ -150,27 +114,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                               (student) => Container(
                                 padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
                                 child: FilterChip(
-                                  label: Text(
-                                    student,
-                                    style: TextStyle(
-                                      // TODO: 这里的判断有点儿绕，因为 Flutter 3.3
-                                      // 对 Chip 的颜色显示有点儿 bug，更新之后注意下
-                                      // 这里看看修没修好
-                                      color: (Theme.of(context).brightness ==
-                                                  Brightness.light) ==
-                                              filter.students[student]
-                                          ? Colors.white
-                                          : Colors.black,
-                                    ),
-                                  ),
-                                  side: BorderSide(
-                                    // TODO: 这里的判断有点儿绕，因为 Flutter 3.3 对
-                                    // Chip 的颜色显示有点儿 bug，更新之后注意下这里看
-                                    // 看修没修好
-                                    color: filter.students[student] ?? false
-                                        ? Colors.transparent
-                                        : Theme.of(context).dividerColor,
-                                  ),
+                                  label: Text(student),
                                   selected: filter.students[student] ?? false,
                                   onSelected: (selected) => setState(
                                     () => filter.students[student] = selected,
