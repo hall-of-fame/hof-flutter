@@ -120,7 +120,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           Divider(
             thickness: 1,
-            color: Theme.of(context).dividerColor.withOpacity(.3),
+            color: Theme.of(context).dividerColor.withValues(alpha: .7),
           ),
           Container(
             margin: const EdgeInsets.fromLTRB(16, 16, 0, 8),

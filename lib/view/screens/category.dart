@@ -132,7 +132,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                       Container(height: 12),
                       Text(
                         "No member matches your filter.",
-                        style: Theme.of(context).textTheme.caption,
+                        style: Theme.of(context).textTheme.bodySmall,
                       ),
                       Container(height: 72),
                     ],

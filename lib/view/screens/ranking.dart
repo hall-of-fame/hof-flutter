@@ -41,7 +41,7 @@ class _RankingScreenState extends State<RankingScreen>
             return Center(
               child: Text(
                 "No one's name matches \"$keyword\"",
-                style: Theme.of(context).textTheme.bodyText1,
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
             );
           } else {
@@ -179,7 +179,13 @@ class _RankingHeaderState extends State<RankingHeader> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
+    return PopScope(
+      canPop: !searchMode,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (searchMode) {
+          setState(() => searchMode = false);
+        }
+      },
       child: Consumer<RankingProvider>(
         builder: (context, provider, _) {
           return AppBar(
@@ -220,14 +226,6 @@ class _RankingHeaderState extends State<RankingHeader> {
           );
         },
       ),
-      onWillPop: () async {
-        if (searchMode) {
-          setState(() => searchMode = false);
-          return false;
-        } else {
-          return true;
-        }
-      },
     );
   }
 }

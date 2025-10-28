@@ -38,7 +38,7 @@ class StickerCard extends StatelessWidget {
             final response = await get(Uri.parse(url));
             await file.writeAsBytes(response.bodyBytes);
           }
-          Share.shareFiles([savePath]);
+          SharePlus.instance.share(ShareParams(files: [XFile(savePath)]));
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
