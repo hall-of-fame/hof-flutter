@@ -14,7 +14,7 @@ jobs:
       - run: flutter pub get
       - run: flutter config --enable-linux-desktop
       - run: flutter build linux
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v5
         with:
           name: linux
           path: build/linux/x64/release/bundle
@@ -31,7 +31,7 @@ jobs:
           flutter-version: '3.3.0'
       - run: flutter pub get
       - run: flutter build apk --split-per-abi
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v5
         with:
           name: android
           path: build/app/outputs/flutter-apk/
@@ -47,7 +47,7 @@ jobs:
   #   - run: flutter config --enable-macos-desktop
   #   - run: flutter pub get
   #   - run: flutter build macos
-  #   - uses: actions/upload-artifact@v2
+  #   - uses: actions/upload-artifact@v5
   #     with:
   #       name: macos
   #       path: build/macos/Build/Products/Release/Hall of Fame.app
@@ -62,7 +62,7 @@ jobs:
   #       flutter-version: '3.3.0'
   #   - run: flutter pub get
   #   - run: flutter build ios --release --no-codesign
-  #   - uses: actions/upload-artifact@v2
+  #   - uses: actions/upload-artifact@v5
   #     with:
   #       name: ios
   #       path: build/ios/iphoneos/Runner.app
@@ -76,7 +76,7 @@ jobs:
           flutter-version: '3.3.0'
       - run: flutter config --enable-windows-desktop
       - run: flutter build windows
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v5
         with:
           name: windows
           path: build/windows/runner/Release
@@ -94,7 +94,7 @@ jobs:
         with:
           branch: gh-pages # The branch the action should deploy to.
           folder: build/web # The folder the action should deploy.
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v5
         with:
           name: web
           path: build/web/
