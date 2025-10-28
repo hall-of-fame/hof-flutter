@@ -250,6 +250,9 @@ class Filter {
     "19": false,
     "20": false,
     "21": false,
+    "22": false,
+    "23": false,
+    "24": false,
   };
   Map<String, bool> students = {};
   void updateStudents(List<StickerElement> stickers) {
