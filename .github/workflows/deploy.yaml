@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: subosito/flutter-action@v1
+      - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.35.7'
       - run: sudo apt install -y ninja-build
@@ -26,7 +26,7 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
-      - uses: subosito/flutter-action@v1
+      - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.35.7'
       - run: flutter pub get
@@ -41,7 +41,7 @@ jobs:
   #   steps:
   #   - uses: actions/checkout@v5
   #   - run: sudo softwareupdate --install-rosetta --agree-to-license
-  #   - uses: subosito/flutter-action@v1
+  #   - uses: subosito/flutter-action@v2
   #     with:
   #       flutter-version: '3.35.7'
   #   - run: flutter config --enable-macos-desktop
@@ -57,7 +57,7 @@ jobs:
   #   steps:
   #   - uses: actions/checkout@v5
   #   - run: sudo softwareupdate --install-rosetta --agree-to-license
-  #   - uses: subosito/flutter-action@v1
+  #   - uses: subosito/flutter-action@v2
   #     with:
   #       flutter-version: '3.35.7'
   #   - run: flutter pub get
@@ -71,7 +71,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: subosito/flutter-action@v1
+      - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.35.7'
       - run: flutter config --enable-windows-desktop
@@ -85,7 +85,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: subosito/flutter-action@v1
+      - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.35.7'
       - run: flutter pub get
