@@ -91,7 +91,7 @@ jobs:
           flutter-version: '3.35.7'
       - run: flutter pub get
       - run: flutter build web
-      - uses: JamesIves/github-pages-deploy-action@4.1.5
+      - uses: JamesIves/github-pages-deploy-action@v4.7.3
         with:
           branch: gh-pages # The branch the action should deploy to.
           folder: build/web # The folder the action should deploy.
